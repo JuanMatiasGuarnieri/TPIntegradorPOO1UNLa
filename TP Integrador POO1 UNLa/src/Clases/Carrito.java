@@ -97,7 +97,7 @@ public class Carrito {
 
 //----------metodos----------
 
-    public String mostrameListaDeItemsCarrito() {
+    public String mostrarListaDeItemsCarrito() {
         String articulos = " ";
         for (ItemCarrito s : lstItemCarrito) {
             articulos += s.toString();
