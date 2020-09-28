@@ -4,7 +4,7 @@ public abstract class Actor {
     protected int id;
     protected Contacto contacto;
 
-// Matias te odio
+
     //----------constructor----------
     public Actor(int id, Contacto contacto) {
         super();
