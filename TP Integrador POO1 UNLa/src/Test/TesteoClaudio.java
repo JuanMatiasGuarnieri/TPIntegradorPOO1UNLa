@@ -1,0 +1,74 @@
+package Test;
+
+import Clases.*;
+
+import java.util.function.Function;
+
+public class TesteoClaudio {
+    public static void main(String[] args) {
+
+        //// /////////////////////////////////// Entrada de datos ///////////////////////////////////////
+
+        // Creacion del comercio (afuera de todo que lo vamos a usar muchas veces)
+        System.out.println("\n0) ----- Jelou Guorl -----");
+        Ubicacion ubicacionDelAlmacen = new Ubicacion(1248, 1632);
+        Contacto contactoAlmacen = new Contacto("almacen@almacen.com", "1112223333", ubicacionDelAlmacen); //R
+        Comercio Almacen = null;
+
+        System.out.println("\n1) ----- Creacion del comercio -----");
+        try {
+            Almacen = new Comercio(1, contactoAlmacen, "Almacen El Jesú", 123456, 550, 300, 35, 25, 15);
+            System.out.println(Almacen.toString());
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("\n2.1) ----- Creando clientes -----");
+        Cliente cli1,cli2,cli3,cli4;
+        try {
+            cli1 = new Cliente(1,
+                    new Contacto("xd@gmail.com", "2223334444", new Ubicacion(69,420)),
+                    "Guarnieri", "Matias", 11222333, 'm');
+            System.out.println(cli1.toString());
+            cli2 = new Cliente(2,
+                    new Contacto("xd@gmail.com", "2223334444", new Ubicacion(69,420)),
+                    "Alegre", "Luis", 11222333, 'm');
+            System.out.println(cli2.toString());
+            cli3 = new Cliente(3,
+                    new Contacto("xd@gmail.com", "2223334444", new Ubicacion(69,420)),
+                    "Basilio", "Matias", 11222333, 'm');
+            System.out.println(cli3.toString());
+            cli4 = new Cliente(4,
+                    new Contacto("xd@gmail.com", "2223334444", new Ubicacion(69,420)),
+                    "Corsico", "Claudio", 11222333, 'm');
+            System.out.println(cli4.toString());
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("\n2.2) ----- Creando clientes invalidos -----");
+        System.out.println("\n2.2.1) ----- Cliente: DNI invalido -----");
+        try {
+            new Cliente(69,
+                    new Contacto("xd@gmail.com", "2223334444", new Ubicacion(69,420)),
+                    "Guarnieri", "Matias", 417859278, 'm');
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("\n3) ----- Articulos -----");
+        System.out.println("\n3.1) ----- Agregando articulos -----");
+
+        try {
+            Almacen.agregarArticulosLstArticulos("Alfajor", "1234567890123", 30d);
+            Almacen.agregarArticulosLstArticulos("Atun", "1234567890123", 60d);
+            Almacen.agregarArticulosLstArticulos("Chocolatin", "1234567890123", 20d);
+            Almacen.agregarArticulosLstArticulos("Uranio 236", "1234567890123", 3000d);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+
+
+    }
+}

@@ -1,5 +1,8 @@
 package Clases;
 
+import com.sun.istack.internal.NotNull;
+
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -117,6 +120,23 @@ public class Comercio extends Actor {
     }
 
 //----------metodos----------
+
+    public LocalTime traerHoraRetiro(LocalDate fordate) throws Exception {
+        // Que se supone que tengo que hacer aca??????????
+        // Asumo que tengo que iterar por lstDiaRetiro
+        // y devolver la primera hora disponible para dado dia de la semana,
+        // o tirar una excepcion en caso contrario
+        LocalTime soonestTime = null;
+        DayOfWeek forweekday = fordate.getDayOfWeek();
+        for (DiaRetiro when: this.lstDiaRetiro) {
+            DayOfWeek retiroDay = DayOfWeek.of(when.getDiaSemana());
+            if (forweekday == retiroDay && (soonestTime == null || when.getHoraDesde().isBefore(soonestTime))) {
+                soonestTime = when.getHoraDesde();
+            }
+        }
+        if (soonestTime == null) throw new Exception("No existe intervalo de retiro para este dia de la semana lol");
+        return soonestTime;
+    }
 
     //validar dni y cuit
     protected boolean validarIdentificadorUnico(long identificador) {
