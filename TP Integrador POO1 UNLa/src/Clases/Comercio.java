@@ -1,12 +1,14 @@
 package Clases;
 
-import com.sun.istack.internal.NotNull;
+//import com.sun.istack.internal.NotNull;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import Clases.DiaRetiro;
 
 public class Comercio extends Actor {
     private String nombreComercio;
@@ -220,4 +222,37 @@ public class Comercio extends Actor {
         }
     }
 
+    public DiaRetiro traerDiaRetiroPorId (int idDiaRetiro) {
+    	DiaRetiro resultado = null;
+        for (DiaRetiro dr : this.lstDiaRetiro) {
+            if (dr.getId() == idDiaRetiro) {
+                resultado = dr;
+            }
+        }
+        return resultado;
+    }
+    
+    public boolean agregarDiaRetiroLstDiaRetiro (int id,int diaSemana, LocalTime horaDesde,LocalTime horaHasta, int intervalo) throws Exception {
+
+    	if(traerDiaRetiro(id)!=null) throw new Exception("Error: dia ya existente");
+		//int id = 0;
+		if(lstDiaRetiro.size() != 0) {
+			id = lstDiaRetiro.get(lstDiaRetiro.size()-1).getId()+1;
+		}
+		lstDiaRetiro.add(new DiaRetiro(id, diaSemana, horaDesde,horaHasta,intervalo));
+		return true;
+	}
+    
+    
+    
+    public DiaRetiro traerDiaRetiro(int idRetiro) {
+		for(DiaRetiro d: lstDiaRetiro) {
+			if (d.getId() == idRetiro) {
+				return d;
+			}
+		}
+		return null;
+	}
+    
+    
 }

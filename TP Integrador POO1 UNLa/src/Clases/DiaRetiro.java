@@ -7,13 +7,14 @@ public class DiaRetiro {
     private int diaSemana;
     private LocalTime horaDesde;
     private int intervalo;
-
+    private LocalTime horaHasta;
     //----------constructor----------
-    public DiaRetiro(int id, int diaSemana, LocalTime horaDesde, int intervalo) {
+    public DiaRetiro(int id, int diaSemana, LocalTime horaDesde,LocalTime horaHasta, int intervalo) {
         super();
         this.id = id;
         this.diaSemana = diaSemana;
         this.horaDesde = horaDesde;
+        this.horaHasta = horaHasta;
         this.intervalo = intervalo;
     }
 
@@ -50,6 +51,12 @@ public class DiaRetiro {
         this.intervalo = intervalo;
     }
 
+public String toString () {
+    	
+    	return "\n id:" +id+ "\n diaSemana: " +diaSemana+ "\n horaDesde: " +horaDesde+ "\n horaHasta: " +horaHasta+ "\n intervalo: " +intervalo;
+    }
+
+    
 //----------metodos----------
 
 }
