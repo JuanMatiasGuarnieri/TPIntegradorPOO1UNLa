@@ -140,9 +140,77 @@ public class Comercio extends Actor {
         return soonestTime;
     }
 
+    /**
+     * Un metodo que hace algo
+     *
+     * @param weekday No se
+     */
+    public List<Turno> generarTurnos(DayOfWeek weekday) {
+        // Genera turnos para un determinado dia a partir de lstDiaRetiro
+        // ej: weekday = jueves
+        List<Turno> turnos = new ArrayList<Turno>();
+        List<Carrito> changuitos = new ArrayList<Carrito>();
+        LocalDate proximamente = LocalDate.now();
+        while (proximamente.getDayOfWeek() != weekday) {
+            // ej: hoy es lunes
+            // ej: Si esta instancia de LocalDate (lunes) no es weekday (jueves),
+            // incrementar este LocalDate un total de 1 dia, y revisar si representa un jueves.
+            // Repetir hasta que lo sea :)
+            proximamente = proximamente.plusDays(1);
+        }
+        // popular [changuitos] con carritos que poseen RetiroLocal y cuya entrega sera en fecha [proximamente]
+        for (Carrito car : lstCarrito) {
+            if (car.getEntrega() instanceof RetiroLocal) {
+                Entrega e = car.getEntrega();
+                if (e.getFecha().equals(proximamente)) changuitos.add(car);
+            }
+        }
+        for (DiaRetiro ret : lstDiaRetiro) {
+            // int id, int diaSemana, LocalTime horaDesde, LocalTime horaHasta, int intervalo
+            if (DayOfWeek.of(ret.getDiaSemana()) == weekday) {
+                // Operar con este DiaRetiro solo si es para el dia a buscar (jueves)
+                for (LocalTime tshift = ret.getHoraDesde();
+                     tshift.isAfter(ret.getHoraHasta());
+                     tshift = tshift.plusMinutes(ret.getIntervalo())) {
+                    Turno turno = new Turno(proximamente, tshift, false);
+                    for (Carrito chn : changuitos) { // Ya se que estos tienen entrega de tipo RetiroLocal y son para hoy :))
+                        RetiroLocal rl = (RetiroLocal) chn.getEntrega();
+                        if (rl.getHoraEntrega().equals(tshift)) turno.setOcupado(true);
+                    }
+                }
+            }
+        }
+        return turnos;
+    }
+
+    public List<Turno> generarTurnosLibres(LocalDate fecha) {
+        List<Turno> all = generarTurnos(fecha.getDayOfWeek());
+        List<Turno> proper = new ArrayList<Turno>();
+        for (Turno t : all) {
+            if (!t.isOcupado()) proper.add(t);
+        }
+        return proper;
+    }
+
+    public List<Turno> traerTurnosOcupados(LocalDate fecha) {
+        List<Turno> all = generarTurnos(fecha.getDayOfWeek());
+        List<Turno> proper = new ArrayList<Turno>();
+        for (Turno t : all) {
+            if (t.isOcupado()) proper.add(t);
+        }
+        return proper;
+    }
+
+    public List<Turno> generarAgenda(LocalDate fecha) {
+        System.out.println("Agenda para "+(fecha.getDayOfWeek().toString())+" "+(fecha.getDayOfMonth()));
+        // Codigo para imprimir va aca
+        return generarTurnos(fecha.getDayOfWeek());
+    }
+
+    // LOS CUATRO METODOS ARRIBA ESTAN SIN PROBAR.
+
     //validar dni y cuit
     protected boolean validarIdentificadorUnico(long identificador) {
-
         return true;
     }
 
