@@ -43,6 +43,14 @@ public class DiaRetiro {
         this.horaDesde = horaDesde;
     }
 
+    public LocalTime getHoraHasta() {
+        return horaHasta;
+    }
+
+    public void setHoraHasta(LocalTime horaHasta) {
+        this.horaHasta = horaHasta;
+    }
+
     public int getIntervalo() {
         return intervalo;
     }

@@ -2,6 +2,9 @@ package Test;
 
 import Clases.*;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.function.Function;
 
 public class TesteoClaudio {
@@ -68,7 +71,9 @@ public class TesteoClaudio {
             System.out.println(e.getMessage());
         }
 
-
+        //System.out.println(DayOfWeek.of(1).getDisplayName(TextStyle.FULL));
+        LocalDate fecha = LocalDate.now();
+        //System.out.println("Agenda para "+(fecha.getDayOfWeek().toString())+" "+(fecha.getDayOfMonth()));
 
     }
 }
