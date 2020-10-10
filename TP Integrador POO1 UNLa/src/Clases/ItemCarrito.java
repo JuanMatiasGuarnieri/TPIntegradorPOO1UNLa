@@ -32,7 +32,8 @@ public class ItemCarrito {
     //---------- to string ----------
     @Override
     public String toString() {
-        return "ItemCarrito [articulo=" + articulo + ", cantidad=" + cantidad + "]\n ";
+        // return "ItemCarrito [articulo=" + articulo + ", cantidad=" + cantidad + "]\n ";
+        return articulo + "\n\ncantidad = " + cantidad;
     }
 
     //----------metodos----------

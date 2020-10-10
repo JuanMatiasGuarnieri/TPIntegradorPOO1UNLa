@@ -37,25 +37,26 @@ public class Articulo {
     }
 
     public void setCodBarras(String codBarras) throws Exception {
-		if (validarCodBarras(codBarras)==false)
-			throw new Exception("Codigo de barras no valido");
-		this.codBarras = codBarras;
-	}
+        boolean validar = validarCodBarras(codBarras);
+        if (validar) {
+            this.codBarras = codBarras;
+        } else {
+            throw new Exception("Codigo de Barras no valido");
+        }
+    }
 
     public double getPrecio() {
-
         return precio;
     }
 
     public void setPrecio(double precio) {
-
         this.precio = precio;
     }
 
     //----------to string----------
     public String toString() {
 
-        return "\nArticulo id = " + id + "\nnombre = " + nombre + "\ncodBarras = " + codBarras + "\nprecio = " + precio;
+        return "\nArticulo id = " + id + "\nNombre = " + nombre + "\nCodigo de Barras = " + codBarras + "\nPrecio = " + precio;
     }
 
 

@@ -99,48 +99,48 @@ public class Carrito {
 
     public String mostrarListaDeItemsCarrito() {
         String articulos = " ";
-        for (ItemCarrito s : lstItemCarrito) {
-            articulos += s.toString();
+        for(ItemCarrito arti : lstItemCarrito) {
+            articulos += arti.toString();
         }
 
-        return "Tus Articulos son:\n" + articulos;
+        return "\nLos Articulos del carrito son:\n"+articulos;
     }
 
-    //buscar Articulo
-//agregar item al carrito
-    public boolean agregarAlCarrito(Articulo articulo, int cantidad) {
-        boolean agregado = false;
-        for (ItemCarrito s : lstItemCarrito) {
-            if (s.getArticulo().getId() == articulo.getId()) {
-                int sum = s.getCantidad() + cantidad;
-                s.setCantidad(sum);
-                agregado = true;
+    public ItemCarrito traerItemPorId(Articulo articulo) {
+        ItemCarrito itemObtenido=null;
+        for(ItemCarrito i : lstItemCarrito) {
+            if(i.getArticulo().getId()==articulo.getId()) {
+                itemObtenido=i;
             }
         }
-        if (agregado == false) {
-            if (lstItemCarrito == null) {
-                List<ItemCarrito> aux = new ArrayList<ItemCarrito>();
-                setLstItemCarrito(aux);
-                this.lstItemCarrito.add(new ItemCarrito(articulo, cantidad));
-            } else {
-                this.lstItemCarrito.add(new ItemCarrito(articulo, cantidad));
-            }
-            //resultado = true;
+        return itemObtenido;
+    }
+
+    public boolean agregarAlCarrito(Articulo articulo, int cantidad) {
+        boolean agregado = false;
+
+        if(traerItemPorId(articulo) != null) {
+            int suma = traerItemPorId(articulo).getCantidad()+cantidad;
+            traerItemPorId(articulo).setCantidad(suma);
+            agregado=true;
+        }
+
+        if(!agregado) {
+            this.lstItemCarrito.add(new ItemCarrito(articulo, cantidad));
         }
         return agregado;
     }
 
-    //eliminar Item
     public boolean sacarDelCarrito(Articulo articulo, int cantidad) {
         boolean eliminado = false;
-        for (ItemCarrito s : lstItemCarrito) {
-            if (s.getArticulo().getId() == articulo.getId()) {
-                int resta = (s.getCantidad() - cantidad);
+        for (ItemCarrito carro : lstItemCarrito) {
+            if (carro.getArticulo().getId() == articulo.getId()) {
+                int resta = (carro.getCantidad() - cantidad);
                 if (resta <= 0) {
-                    this.lstItemCarrito.remove(s);
+                    this.lstItemCarrito.remove(carro);
                     eliminado = true;
                 } else {
-                    s.setCantidad(resta);
+                    carro.setCantidad(resta);
                 }
             }
         }

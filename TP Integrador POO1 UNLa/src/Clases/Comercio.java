@@ -209,16 +209,18 @@ public class Comercio extends Actor {
     }
 
     // LOS CUATRO METODOS ARRIBA ESTAN SIN PROBAR.
-
-  
-    
+    //validar dni y cuit
+    protected boolean validarIdentificadorUnico (long identificador) {
+        //sin terminar
+        return true;
+    }
 
     //Articulos
     public Articulo traerArticuloPorId(int idArticulo) {
         Articulo resultado = null;
-        for (Articulo art : this.lstArticulo) {
-            if (art.getId() == idArticulo) {
-                resultado = art;
+        for(Articulo arti : this.lstArticulo) {
+            if (arti.getId() == idArticulo) {
+                resultado = arti;
             }
         }
         return resultado;
@@ -226,40 +228,39 @@ public class Comercio extends Actor {
 
     public Articulo traerArticuloPorCodBarras(String codBarras) {
         Articulo resultado = null;
-        for (Articulo art : this.lstArticulo) {
-            if (art.getCodBarras().equalsIgnoreCase(codBarras)) {
-                resultado = art;
+        for (Articulo arti : this.lstArticulo) {
+            if (arti.getCodBarras().equalsIgnoreCase(codBarras)) {
+                resultado = arti;
             }
         }
         return resultado;
     }
 
     public void agregarArticulosLstArticulos(String nombre, String codBarras, double precio) throws Exception {
-
         if (lstArticulo.size() == 0) {
             lstArticulo.add(new Articulo(1, nombre, codBarras, precio));
         }
         if (traerArticuloPorCodBarras(codBarras) == null) {
-            lstArticulo.add(new Articulo(lstArticulo.get(lstArticulo.size() - 1).getId() + 1, nombre, codBarras, precio));
+            lstArticulo.add(new Articulo(lstArticulo.get(lstArticulo.size()-1).getId()+1, nombre, codBarras, precio));
         }
     }
 
     //carritos
     public Carrito traerCarritoPorCliente(Cliente cliente) {
-        Carrito tieneCarrito = null;
-        for (Carrito car : lstCarrito) {
-            if (car.getCliente().getDni() == cliente.getDni()) {
-                tieneCarrito = car;
+        Carrito CarritoAbierto = null; //tiene Carrito?
+        for (Carrito carro : lstCarrito) {
+            if (carro.getCliente().getDni() == cliente.getDni()) {
+                CarritoAbierto = carro;
             }
         }
-        return tieneCarrito;
+        return CarritoAbierto;
     }
 
     public boolean verificarCarritosCerrados(Cliente cliente) {
         boolean carritosCerrados = false;
-        for (Carrito car : lstCarrito) {
-            if (car.getCliente().getDni() == cliente.getDni()) {
-                if (car.getCerrado()) {
+        for (Carrito carro : lstCarrito) {
+            if (carro.getCliente().getDni() == cliente.getDni()) {
+                if (carro.getCerrado()) {
                     carritosCerrados = true;
                 }
             }
@@ -270,20 +271,20 @@ public class Comercio extends Actor {
     public void agregarCarritoLstCarritos(Cliente cliente) throws Exception {
 
         if (lstCarrito.size() == 0) {
-            lstCarrito.add(new Carrito(1, LocalDate.now(), LocalTime.now(), false, 0, cliente, null));
+            lstCarrito.add(new Carrito(1,LocalDate.now(),LocalTime.now(),false,0, cliente, null));
             System.out.println("carrito creado");
         } else if ((traerCarritoPorCliente(cliente) != null && verificarCarritosCerrados(cliente) == true) || (traerCarritoPorCliente(cliente) == null)) {
-            lstCarrito.add(new Carrito(lstCarrito.get(lstCarrito.size() - 1).getId() + 1, LocalDate.now(), LocalTime.now(), false, 0, cliente, null));
+            lstCarrito.add(new Carrito(lstCarrito.get(lstCarrito.size()-1).getId()+1,LocalDate.now(),LocalTime.now(),false,0, cliente, null));
         } else {
             throw new Exception("Cierre primero sus Carritos!");
         }
     }
 
     public void eliminarCarritoAbierto(long dni) {
-        for (Carrito c : lstCarrito) {
-            if (c.getCliente().getDni() == dni) {
-                if (c.getCerrado() == true) {
-                    lstCarrito.remove(c);
+        for (Carrito carro : lstCarrito) {
+            if (carro.getCliente().getDni() == dni) {
+                if (carro.getCerrado() == true) {
+                    lstCarrito.remove(carro);
                 }
             }
         }
