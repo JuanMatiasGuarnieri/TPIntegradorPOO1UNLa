@@ -1,5 +1,6 @@
 package Clases;
 
+
 public abstract class Actor {
     protected int id;
     protected Contacto contacto;
@@ -31,5 +32,55 @@ public abstract class Actor {
     }
 
     //----------metodos----------
-    protected abstract boolean validarIdentificadorUnico(long identificador);
+    public boolean validarIdentificadorUnico (long identificador) {
+		String xyStr, dniStr, digitoStr,cuitMenosI;
+		
+		boolean booleano = false;
+		String identificadorStr = String.valueOf(identificador);
+		
+		if(this instanceof Cliente) {															//Si es cliente tiene dni
+			return(identificadorStr.length() == 7 || identificadorStr.length() == 8);		//Los dni solo tienen 8 o 9 digitos
+		}
+		
+		else if(identificadorStr.length() != 11) {											//Si no es cliente es comercio y tiene cuit
+	    	return false;																		//los cuit solo tienen 11 dÃ­gitos
+		}
+		
+		xyStr = identificadorStr.substring(0, 2);
+		dniStr = identificadorStr.substring(2, 10); 
+		digitoStr = identificadorStr.substring(10, 11);
+		cuitMenosI = identificadorStr.substring(0,11);
+		String[] cuitArray = cuitMenosI.split(""); 
+		if (identificadorStr.length() != 11 ) {
+			return booleano;
+		}
+		//Inicializamos una matriz por la cual se multiplicarán cada uno de los dígitos
+        Integer[] serie = {5, 4, 3, 2, 7, 6, 5, 4, 3, 2};
+      //Creamos una variable auxiliar donde guardaremos los resultados del calculo del número validador
+        Integer aux = 0;
+        //Recorremos las matrices de forma simultanea, sumando los productos de la serie por el número en la misma posición
+        for (int i=0; i<10; i++){
+            aux += Integer.valueOf(cuitArray[i]) * serie[i];
+        }
+      //Hacemos como se especifica: 11 menos el resto de de la división de la suma de productos anterior por 11
+        aux = 11 - (aux % 11);
+        //Si el resultado anterior es 11 el código es 0
+        if (aux == 11){
+            aux = 0;
+        //o si el resultado anterior es 10 el código es 9
+        } else if (aux == 10){
+        	
+            aux = 9;
+        }
+        
+        int ultDigito = Integer.parseInt(digitoStr);
+        if (aux == ultDigito) {
+        	
+        	return true;
+        }
+        
+        return booleano;
+        
+		
+	}
 }

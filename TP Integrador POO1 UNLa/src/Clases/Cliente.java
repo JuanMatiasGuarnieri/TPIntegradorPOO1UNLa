@@ -36,22 +36,23 @@ public class Cliente extends Actor {
         return dni;
     }
 
-    public void setDni(long dni) throws Exception {
-
-        if (validarIdentificadorUnico(dni)) {
-            this.dni = dni;
-        } else {
-            throw new Exception("DNI no valido");
-        }
-    }
+    public void setDni(long dni)throws Exception{
+		if(!validarIdentificadorUnico(dni))	throw new Exception("Error: DNI invalido");
+		this.dni = dni;
+	}
 
     public char getSexo() {
         return sexo;
     }
 
-    public void setSexo(char sexo) {
-        this.sexo = sexo;
-    }
+    public void setSexo(char sexo) throws Exception {
+		if(!validarSexo(sexo)) throw new Exception("Error: Sexo invalido ('H' o 'M')");
+		this.sexo = Character.toUpperCase(sexo);
+		
+	}
+    public boolean validarSexo(char sexo) {
+		return(sexo=='H' || sexo=='h' || sexo=='M' || sexo=='m');
+	}
 
     //----------to string----------
     @Override
@@ -60,11 +61,5 @@ public class Cliente extends Actor {
     }
 
     //----------metodos----------
-    protected boolean validarIdentificadorUnico(long identificador) {
-        boolean valido = false;
-        if (identificador > 999999 && identificador < 100000000) {
-            valido = true;
-        }
-        return valido;
-    }
+    
 }
