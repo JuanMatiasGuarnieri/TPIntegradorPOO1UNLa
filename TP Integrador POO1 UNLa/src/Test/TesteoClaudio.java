@@ -82,7 +82,7 @@ public class TesteoClaudio {
             Almacen.agregarDiaRetiros(weekday, LocalTime.of(9, 0), LocalTime.of(10, 0), 15);
             Almacen.agregarDiaRetiros(weekday, LocalTime.of(17, 30), LocalTime.of(20, 00), 30);
         } catch (Exception e) {
-
+            System.out.println(e.getMessage());
         }
 
         System.out.println("\n4.2) ----- Agenda -----");
