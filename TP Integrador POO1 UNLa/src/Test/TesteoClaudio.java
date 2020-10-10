@@ -4,6 +4,7 @@ import Clases.*;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.TextStyle;
 import java.util.function.Function;
 
@@ -71,9 +72,24 @@ public class TesteoClaudio {
             System.out.println(e.getMessage());
         }
 
+        System.out.println("\n4) ----- Dias de Retiro -----");
+        System.out.println("\n4.1) ----- Agregando -----");
         //System.out.println(DayOfWeek.of(1).getDisplayName(TextStyle.FULL));
-        LocalDate fecha = LocalDate.now();
+        LocalDate unafecha = LocalDate.now().plusDays(1); // Mañana
+        int weekday = unafecha.getDayOfWeek().getValue(); // dia de mañana pero en numero
         //System.out.println("Agenda para "+(fecha.getDayOfWeek().toString())+" "+(fecha.getDayOfMonth()));
+        try {
+            Almacen.agregarDiaRetiros(weekday, LocalTime.of(9, 0), LocalTime.of(10, 0), 15);
+            Almacen.agregarDiaRetiros(weekday, LocalTime.of(17, 30), LocalTime.of(20, 00), 30);
+        } catch (Exception e) {
+
+        }
+
+        System.out.println("\n4.2) ----- Agenda -----");
+        //Almacen.generarAgenda(unafecha);
+        Almacen.imprimirAgenda(unafecha);
+        // No puedo probar turnos ocupados: No tengo la funcionalidad de un carrito cerrado a mano para probar
+
 
     }
 }

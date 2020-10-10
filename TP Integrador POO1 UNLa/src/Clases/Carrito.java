@@ -147,4 +147,18 @@ public class Carrito {
         return eliminado;
     }
 
+    public LocalTime traerHoraRetiro(LocalDate fecha) throws Exception {
+        // "el método traerHoraRetiro lo habíamos pensado originalmente
+        // para recuperar la hora de retiro de un carrito en particular.
+        // Con eso podrías armar una lista de turnos ocupados
+        // para marcar en la agenda."
+        // ??????????????????????????
+        // Que funcion cumple entonces "fecha" si solo es para traer la hora de retiro de un carrito???
+        if (!(this.entrega instanceof RetiroLocal)) {
+            throw new Exception("Este carrito no tiene fecha de retiro!");
+        }
+        RetiroLocal e = (RetiroLocal)getEntrega();
+        return e.getHoraEntrega();
+    }
+
 }

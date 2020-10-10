@@ -41,6 +41,10 @@ public class Turno {
         this.ocupado = ocupado;
     }
 
-//----------metodos----------
+    //----------metodos----------
+    @Override
+    public String toString() {
+        return "Turno: "+dia.getDayOfMonth()+"/"+dia.getMonthValue()+" "+hora.toString()+" | "+(ocupado?"OCUPADO":"LIBRE");
+    }
 
 }

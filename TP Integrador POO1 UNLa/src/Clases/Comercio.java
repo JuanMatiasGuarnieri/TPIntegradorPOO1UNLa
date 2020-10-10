@@ -6,6 +6,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import Clases.DiaRetiro;
@@ -141,13 +142,31 @@ public class Comercio extends Actor {
         return soonestTime;
     }
 
+    private void ordenarTurnos(List<Turno> turnos) {
+        // Ordena turnos por hora de forma ascendente (temprano antes)
+        // Podria usar collections.sort, o...
+        boolean ordenado = false;
+        while (ordenado = false) {
+            ordenado = true; //lol
+            for (int i = 0; i < turnos.size()-1; i++) {
+                Turno t1 = turnos.get(i  );
+                Turno t2 = turnos.get(i+1);
+                if ( t1.getHora().isAfter( t2.getHora() ) ) {
+                    ordenado = false;
+                    turnos.set(i  , t2); // swap
+                    turnos.set(i+1, t1); // swap
+                }
+            }
+        } // Repetir hasta que no se hagan intercambios
+    }
+
     /**
      * Un metodo que hace algo
      *
      * @param weekday No se
      */
     public List<Turno> generarTurnos(DayOfWeek weekday) {
-        // Genera turnos para un determinado dia a partir de lstDiaRetiro
+        // Genera turnos para un determinado dia futuro a partir de lstDiaRetiro
         // ej: weekday = jueves
         List<Turno> turnos = new ArrayList<Turno>();
         List<Carrito> changuitos = new ArrayList<Carrito>();
@@ -157,6 +176,7 @@ public class Comercio extends Actor {
             // ej: Si esta instancia de LocalDate (lunes) no es weekday (jueves),
             // incrementar este LocalDate un total de 1 dia, y revisar si representa un jueves.
             // Repetir hasta que lo sea :)
+            // (no tengo .of(DayOfWeek) asi que...)
             proximamente = proximamente.plusDays(1);
         }
         // popular [changuitos] con carritos que poseen RetiroLocal y cuya entrega sera en fecha [proximamente]
@@ -171,13 +191,21 @@ public class Comercio extends Actor {
             if (DayOfWeek.of(ret.getDiaSemana()) == weekday) {
                 // Operar con este DiaRetiro solo si es para el dia a buscar (jueves)
                 for (LocalTime tshift = ret.getHoraDesde();
-                     tshift.isAfter(ret.getHoraHasta());
+                     tshift.isBefore(ret.getHoraHasta().plusNanos(1));
                      tshift = tshift.plusMinutes(ret.getIntervalo())) {
+                    // System.out.println("DEBUG: 3");
                     Turno turno = new Turno(proximamente, tshift, false);
-                    for (Carrito chn : changuitos) { // Ya se que estos tienen entrega de tipo RetiroLocal y son para hoy :))
-                        RetiroLocal rl = (RetiroLocal) chn.getEntrega();
-                        if (rl.getHoraEntrega().equals(tshift)) turno.setOcupado(true);
+                    for (Carrito chn : changuitos) { // Ya se que estos tienen entrega de tipo RetiroLocal y son para hoy :)
+                        // RetiroLocal rl = (RetiroLocal) chn.getEntrega();
+                        // if (rl.getHoraEntrega().equals(tshift)) turno.setOcupado(true);
+                        try {
+                            if (chn.traerHoraRetiro(null).equals(tshift)) turno.setOcupado(true);
+                        } catch (Exception e) {
+                            // lol.
+                            System.out.println(e.getMessage());
+                        }
                     }
+                    turnos.add(turno);
                 }
             }
         }
@@ -203,12 +231,19 @@ public class Comercio extends Actor {
     }
 
     public List<Turno> generarAgenda(LocalDate fecha) {
-        System.out.println("Agenda para "+(fecha.getDayOfWeek().toString())+" "+(fecha.getDayOfMonth()));
-        // Codigo para imprimir va aca
-        return generarTurnos(fecha.getDayOfWeek());
+        List<Turno> t = generarTurnos(fecha.getDayOfWeek());
+        ordenarTurnos(t);
+        return t;
     }
 
-    // LOS CUATRO METODOS ARRIBA ESTAN SIN PROBAR.
+    public void imprimirAgenda(LocalDate fecha) {
+        System.out.println("Agenda para "+(fecha.getDayOfWeek().toString())+" "+(fecha.getDayOfMonth()));
+        List<Turno> all = generarAgenda(fecha);
+        for (Turno t : all) {
+            System.out.println(t.toString());
+        }
+    }
+
     //validar dni y cuit
     protected boolean validarIdentificadorUnico (long identificador) {
         //sin terminar
