@@ -21,8 +21,8 @@ public class TesteoCharrua {
 		Ubicacion ubicacionDelAlmacen= new Ubicacion(98, 130);
 		Contacto contAlmacen= new Contacto("almacen@servidor.com","2512585",ubicacionDelAlmacen);
 		Comercio almacenGranate= new Comercio(1, contAlmacen, "AlmacenGranate",3038945212L, 300, 622, 15, 40, 25);
-		almacenGranate.agregarDiaRetiroLstDiaRetiro(1,7,LocalTime.of(8, 30),LocalTime.of(9, 30),30);
-		almacenGranate.agregarDiaRetiroLstDiaRetiro(2,6,LocalTime.of(9, 30),LocalTime.of(10, 30),30);
+		almacenGranate.agregarDiaRetiros(7,LocalTime.of(8, 30),LocalTime.of(9, 30),30);
+		almacenGranate.agregarDiaRetiros(6,LocalTime.of(9, 30),LocalTime.of(10, 30),30);
 		
 		System.out.println(almacenGranate.traerDiaRetiroPorId(1) );
 		System.out.println(almacenGranate.traerDiaRetiroPorId(2) );

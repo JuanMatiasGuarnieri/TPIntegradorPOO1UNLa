@@ -300,14 +300,24 @@ public class Comercio extends Actor {
         return resultado;
     }
     
-    public boolean agregarDiaRetiroLstDiaRetiro (int id,int diaSemana, LocalTime horaDesde,LocalTime horaHasta, int intervalo) throws Exception {
+    public boolean agregarDiaRetiros(int diaSemana, LocalTime horaDesde, LocalTime horaHasta, int intervalo)
+			throws Exception {
+		int idDiaRetiro = 1;
 
-    	if(traerDiaRetiro(id)!=null) throw new Exception("Error: dia ya existente");
-		//int id = 0;
-		if(lstDiaRetiro.size() != 0) {
-			id = lstDiaRetiro.get(lstDiaRetiro.size()-1).getId()+1;
+		// Busco el ultimo Id
+		if (getLstDiaRetiro().size() != 0) { // si la lista esta vacia el Id va a ser = 1
+			idDiaRetiro = lstDiaRetiro.get(getLstDiaRetiro().size() - 1).getId() + 1; // el ultimo id + 1
 		}
-		lstDiaRetiro.add(new DiaRetiro(id, diaSemana, horaDesde,horaHasta,intervalo));
+
+		DiaRetiro nuevoDiaRetiro = new DiaRetiro(idDiaRetiro, diaSemana, horaDesde, horaHasta, intervalo);// creo el
+																											// nuevo dia
+
+		// Busco si el dia Existe y tiro una Exception
+		for (int i = 0; i < lstDiaRetiro.size(); i++) {
+			if (nuevoDiaRetiro.equals(lstDiaRetiro.get(i)))
+				throw new Exception("El dia Ya Existe! " + nuevoDiaRetiro);
+		}
+		lstDiaRetiro.add(nuevoDiaRetiro);
 		return true;
 	}
     

@@ -11,7 +11,7 @@ public class Cliente extends Actor {
         super(id, contacto);
         this.apellido = apellido;
         this.nombre = nombre;
-        this.sexo = sexo;
+        setSexo(sexo);
         setDni(dni);
     }
 
