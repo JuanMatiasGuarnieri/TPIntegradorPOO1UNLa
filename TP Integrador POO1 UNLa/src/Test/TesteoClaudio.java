@@ -21,7 +21,7 @@ public class TesteoClaudio {
 
         System.out.println("\n1) ----- Creacion del comercio -----");
         try {
-            Almacen = new Comercio(1, contactoAlmacen, "Almacen El Jesú", 123456, 550, 300, 35, 25, 15);
+            Almacen = new Comercio(1, contactoAlmacen, "Almacen El Jesú", 30418459219l, 550, 300, 35, 25, 15);
             System.out.println(Almacen.toString());
         } catch(Exception e) {
             System.out.println(e.getMessage());
@@ -67,10 +67,10 @@ public class TesteoClaudio {
         System.out.println("\n3.1) ----- Agregando articulos -----");
 
         try {
-            Almacen.agregarArticulosLstArticulos("Alfajor", "1234567890123", 30d);
-            Almacen.agregarArticulosLstArticulos("Atun", "1234567890123", 60d);
-            Almacen.agregarArticulosLstArticulos("Chocolatin", "1234567890123", 20d);
-            Almacen.agregarArticulosLstArticulos("Uranio 236", "1234567890123", 3000d);
+            Almacen.agregarArticulosLstArticulos("Alfajor", "7792345678909", 30d);
+            Almacen.agregarArticulosLstArticulos("Atun", "7791234567898", 60d);
+            Almacen.agregarArticulosLstArticulos("Chocolatin", "7793456789010", 20d);
+            Almacen.agregarArticulosLstArticulos("Uranio 236", "7795678901232", 3000d);
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }

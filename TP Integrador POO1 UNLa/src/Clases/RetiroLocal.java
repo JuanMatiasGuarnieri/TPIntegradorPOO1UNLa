@@ -24,7 +24,10 @@ public class RetiroLocal extends Entrega{
     }
 
 //----------metodos----------
-    
+    @Override
+	public String toString() {
+		return "Retiro en Local [hora de Entrega=" + horaEntrega + "]";
+	}
 
     
 }

@@ -13,6 +13,7 @@ import Clases.DiaRetiro;
 
 
 
+
 public class Comercio extends Actor {
     private String nombreComercio;
     private long cuit;
@@ -125,6 +126,20 @@ public class Comercio extends Actor {
         this.lstArticulo = lstArticulo;
     }
 
+  /*  @Override
+	public boolean equals(Object obj) {
+		return this.cuit == ((Comercio) obj).cuit;
+	}*/
+
+	// ToString
+	@Override
+	public String toString() {
+		return "Comercio [nombreComercio = " + nombreComercio + ", cuil = " + cuit + "]";
+	}
+    
+
+    
+    
 //----------metodos----------
 
     public LocalTime traerHoraRetiro(LocalDate fordate) throws Exception {
@@ -251,11 +266,7 @@ public class Comercio extends Actor {
     }
     
 
-    //validar dni y cuit
-    protected boolean validarIdentificadorUnico (long identificador) {
-        //sin terminar
-        return true;
-    }
+ 
 
     //Articulos
     public Articulo traerArticulo(int idArticulo) {
@@ -422,10 +433,10 @@ public class Comercio extends Actor {
 		return super.contacto.getUbicacion();
 	}
 
-public void cargarDestino(Cliente cliente) {
-	Envio envioLocal=(Envio)traerCarritoPorCliente(cliente).getEntrega();
-	envioLocal.setCosto(traerUbicacion(), costoFijo, costoPorKm);
-}
+    public void cargarDestino(Cliente cliente) {
+    	Envio envioLocal=(Envio)traerCarritoPorCliente(cliente).getEntrega();
+    			envioLocal.setCosto(traerUbicacion(), costoFijo, costoPorKm);
+    		}
     
     
 }

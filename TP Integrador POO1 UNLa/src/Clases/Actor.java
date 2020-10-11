@@ -1,38 +1,58 @@
 package Clases;
 
 
+
 public abstract class Actor {
-    protected int id;
-    protected Contacto contacto;
+	protected int id;
+	protected Contacto contacto;
+	//constructor
+	public Actor(int id, Contacto contacto) {
+		super();
+		this.id = id;
+		this.contacto = contacto;
+	}
+	//getters y setters
+	public int getId() {
+		return id;
+	}
 
-
-    //----------constructor----------
-    public Actor(int id, Contacto contacto) {
-        super();
-        this.id = id;
-        this.contacto = contacto;
-    }
-
-
-    //----------getters y setters----------
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Contacto getContacto() {
-        return contacto;
-    }
-
-    public void setContacto(Contacto contacto) {
-        this.contacto = contacto;
-    }
-
-    //----------metodos----------
-    protected boolean validarIdentificadorUnico (long identificador) {
+	public void setId(int id) {
+		this.id = id;
+	}
+	public Contacto getContacto() {
+		return contacto;
+	}
+	public void setContacto(Contacto contacto) {
+		this.contacto = contacto;
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((contacto == null) ? 0 : contacto.hashCode());
+		result = prime * result + id;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Actor other = (Actor) obj;
+		if (contacto == null) {
+			if (other.contacto != null)
+				return false;
+		} else if (!contacto.equals(other.contacto))
+			return false;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+	//metodos
+	protected boolean validarIdentificadorUnico (long identificador) {
 		String xyStr, dniStr, digitoStr,cuitMenosI;
 		
 		boolean booleano = false;
@@ -54,9 +74,9 @@ public abstract class Actor {
 		if (identificadorStr.length() != 11 ) {
 			return booleano;
 		}
-		//Inicializamos una matriz por la cual se multiplicaran cada uno de los digitos
+		//Inicializamos una matriz por la cual se multiplicar�n cada uno de los d�gitos
         Integer[] serie = {5, 4, 3, 2, 7, 6, 5, 4, 3, 2};
-      //Creamos una variable auxiliar donde guardaremos los resultados del calculo del numero validador
+      //Creamos una variable auxiliar donde guardaremos los resultados del calculo del n�mero validador
         Integer aux = 0;
         //Recorremos las matrices de forma simultanea, sumando los productos de la serie por el n�mero en la misma posici�n
         for (int i=0; i<10; i++){
@@ -83,4 +103,6 @@ public abstract class Actor {
         
 		
 	}
+	
+
 }

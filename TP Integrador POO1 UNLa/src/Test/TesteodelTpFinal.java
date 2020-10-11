@@ -44,7 +44,7 @@ public class TesteodelTpFinal {
 
 				try {
 							System.out.println("\n-----Ingreso comercio con Cuit validado-----");
-							almacenGranate= new Comercio(1, contactoAlmacen, "AlmacenGranate",30183647769l, 100, 500, 10, 50, 10);
+							almacenGranate= new Comercio(1, contactoAlmacen, "AlmacenGranate",30418459219l, 100, 500, 10, 50, 10);
 							System.out.println("El CUIT del Comercio número= " + almacenGranate.getCuit() + " es válido");
 							System.out.println(almacenGranate);
 						}

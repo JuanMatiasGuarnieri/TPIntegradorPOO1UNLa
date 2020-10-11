@@ -62,12 +62,5 @@ public class Cliente extends Actor {
         return "\nCliente apellido = " + apellido + "\nNombre = " + nombre + "\ndni = " + dni;
     }
 
-    //----------metodos----------
-    protected boolean validarIdentificadorUnico(long identificador) {
-        boolean validar = false;
-        if (identificador > 999999 && identificador < 100000000) {
-            validar = true;
-        }
-        return validar;
-    }
+    
 }

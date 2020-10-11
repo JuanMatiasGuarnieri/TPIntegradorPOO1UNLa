@@ -2,6 +2,8 @@ package Clases;
 
 import java.time.LocalTime;
 
+
+
 public class DiaRetiro {
     private int id;
     private int diaSemana;
@@ -59,10 +61,58 @@ public class DiaRetiro {
         this.intervalo = intervalo;
     }
 
-public String toString () {
-    	
-    	return "\n id:" +id+ "\n diaSemana: " +diaSemana+ "\n horaDesde: " +horaDesde+ "\n horaHasta: " +horaHasta+ "\n intervalo: " +intervalo;
-    }
+/*	@Override
+	public boolean equals(Object obj) {
+		return this.diaSemana == ((DiaRetiro) obj).getDiaSemana();
+	}
+*/
+    
+    
+	@Override
+	public String toString() {
+		return "DiaRetiro [id=" + id + ", diaSemana=" + diaSemana + ", horaDesde=" + horaDesde + ", horaHasta="
+				+ horaHasta + ", intervalo=" + intervalo + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + diaSemana;
+		result = prime * result + ((horaDesde == null) ? 0 : horaDesde.hashCode());
+		result = prime * result + ((horaHasta == null) ? 0 : horaHasta.hashCode());
+		result = prime * result + id;
+		result = prime * result + intervalo;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DiaRetiro other = (DiaRetiro) obj;
+		if (diaSemana != other.diaSemana)
+			return false;
+		if (horaDesde == null) {
+			if (other.horaDesde != null)
+				return false;
+		} else if (!horaDesde.equals(other.horaDesde))
+			return false;
+		if (horaHasta == null) {
+			if (other.horaHasta != null)
+				return false;
+		} else if (!horaHasta.equals(other.horaHasta))
+			return false;
+		if (id != other.id)
+			return false;
+		if (intervalo != other.intervalo)
+			return false;
+		return true;
+	}
 
     
 //----------metodos----------
