@@ -55,7 +55,6 @@ public class Articulo {
 
     //----------to string----------
     public String toString() {
-
         return "\nArticulo id = " + id + "\nNombre = " + nombre + "\nCodigo de Barras = " + codBarras + "\nPrecio = " + precio;
     }
 
@@ -68,23 +67,21 @@ public class Articulo {
 		long longCodBarras = Long.parseLong(codBarras);
 		long ultDigito = longCodBarras % 10;
 		for (int i=0;i<12; i++) {
-		int digito = Integer.parseInt(codBarras.substring(i,i+1));
-		if (i%2==0) {
-		pares += digito;
-		}else {
-		impares += digito; 
-		}
+		    int digito = Integer.parseInt(codBarras.substring(i,i+1));
+		    if (i%2==0) {
+		        pares += digito;
+		    } else {
+		        impares += digito;
+		    }
 		}
 		impares = impares * 3; //multiplicar impares por 3
 		int total = impares + pares; //sumar pares e impares
-		if (total % 10 == 0){ //Si el total es divisible por 10
-		checkSum = 0;//Checksum es 0
+		if (total % 10 == 0) { //Si el total es divisible por 10
+		    checkSum = 0;//Checksum es 0
 		} else { //si total no es divisible por 10
-		checkSum = 10 - (total % 10); // Hacemos mod 10 del total y ese resultado va a restar a 10. 
-		                              // Esto nos va a dar el digito verificador (El último digito)
+		    checkSum = 10 - (total % 10); // Hacemos mod 10 del total y ese resultado va a restar a 10.
+            // Esto nos va a dar el digito verificador (El último digito)
 		}
 		return (checkSum == ultDigito);
-		
-		
 	}
 }

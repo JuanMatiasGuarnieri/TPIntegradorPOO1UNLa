@@ -435,8 +435,8 @@ public class Comercio extends Actor {
 
     public void cargarDestino(Cliente cliente) {
     	Envio envioLocal=(Envio)traerCarritoPorCliente(cliente).getEntrega();
-    			envioLocal.setCosto(traerUbicacion(), costoFijo, costoPorKm);
-    		}
+    	envioLocal.setCosto(traerUbicacion(), costoFijo, costoPorKm);
+    }
     
     
 }
