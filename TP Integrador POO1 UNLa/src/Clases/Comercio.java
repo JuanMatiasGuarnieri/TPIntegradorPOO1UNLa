@@ -366,6 +366,21 @@ public class Comercio extends Actor {
 		}
 		return null;
 	}
+
+    public void generarUnaEntrega(Cliente cliente,LocalDate fecha, boolean efectivo, LocalTime hora)throws Exception {
+        Carrito car= traerCarritoPorCliente(cliente);
+        if(car!=null && car.getCerrado()) {
+            throw new Exception("Este Carrito ya esta cerrado, ya ingreso su tipo de entrega");
+        }
+        car.setEntrega(new RetiroLocal(car.getId(), fecha, efectivo, hora));
+    }
+    public void generarUnaEntrega(Cliente cliente,LocalDate fecha, boolean efectivo, LocalTime horaHasta,LocalTime horaDesde,Ubicacion ubicacion)throws Exception {
+        Carrito car= traerCarritoPorCliente(cliente);
+        if(car!=null && car.getCerrado()) {
+            throw new Exception("Este Carrito ya esta cerrado, ya ingreso su tipo de entrega");
+        }
+        car.setEntrega(new Envio(car.getId(), fecha, efectivo,horaHasta, horaDesde, 0, ubicacion));
+    }
     
     
 }
