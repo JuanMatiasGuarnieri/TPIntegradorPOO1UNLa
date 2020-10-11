@@ -28,7 +28,7 @@ public class TesteoClaudio {
         }
 
         System.out.println("\n2.1) ----- Creando clientes -----");
-        Cliente cli1,cli2,cli3,cli4;
+        Cliente cli1 = null, cli2 = null, cli3 = null, cli4 = null;
         try {
             cli1 = new Cliente(1,
                     new Contacto("xd@gmail.com", "2223334444", new Ubicacion(69,420)),
@@ -36,15 +36,15 @@ public class TesteoClaudio {
             System.out.println(cli1.toString());
             cli2 = new Cliente(2,
                     new Contacto("xd@gmail.com", "2223334444", new Ubicacion(69,420)),
-                    "Alegre", "Luis", 11222333, 'm');
+                    "Alegre", "Luis", 11222444, 'm');
             System.out.println(cli2.toString());
             cli3 = new Cliente(3,
                     new Contacto("xd@gmail.com", "2223334444", new Ubicacion(69,420)),
-                    "Basilio", "Matias", 11222333, 'm');
+                    "Basilio", "Matias", 11222555, 'm');
             System.out.println(cli3.toString());
             cli4 = new Cliente(4,
                     new Contacto("xd@gmail.com", "2223334444", new Ubicacion(69,420)),
-                    "Corsico", "Claudio", 11222333, 'm');
+                    "Corsico", "Claudio", 11222666, 'm');
             System.out.println(cli4.toString());
         } catch(Exception e) {
             System.out.println(e.getMessage());
@@ -85,11 +85,28 @@ public class TesteoClaudio {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
-        System.out.println("\n4.2) ----- Agenda -----");
-        //Almacen.generarAgenda(unafecha);
+
+        System.out.println("\n4.2) ----- Un carrito cerrado! -----");
+        Articulo pezkado = Almacen.traerArticuloPorId(2);
+        Articulo chernobylSorpresa = Almacen.traerArticuloPorId(4);
+        try {
+            Almacen.agregarCarritoLstCarritos(cli3);
+            Almacen.agregarCarritoLstCarritos(cli4);
+            Carrito car1 = Almacen.traerCarritoPorCliente(cli3);
+            Carrito car2 = Almacen.traerCarritoPorCliente(cli4);
+            car1.agregarAlCarrito(chernobylSorpresa, 69);
+            car2.agregarAlCarrito(pezkado, 420);
+            LocalTime when = Almacen.traerHoraRetiro(unafecha);
+            Almacen.generarUnaEntrega(cli4, unafecha, true, when);
+            when = Almacen.traerHoraRetiro(unafecha);
+            Almacen.generarUnaEntrega(cli3, unafecha, true, when);
+        } catch (Exception e) {
+            System.out.println("OH NO");
+            System.out.println(e.toString());
+        }
+
+        System.out.println("\n4.3) ----- Agenda -----");
         Almacen.imprimirAgenda(unafecha);
-        // No puedo probar turnos ocupados: No tengo la funcionalidad de un carrito cerrado a mano para probar
 
 
     }

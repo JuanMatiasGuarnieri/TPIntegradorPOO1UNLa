@@ -147,6 +147,8 @@ public class Carrito {
         return eliminado;
     }
 
+    /*
+    // Ya habia uno de estos en Comercio, que verga hice?
     public LocalTime traerHoraRetiro(LocalDate fecha) throws Exception {
         // "el método traerHoraRetiro lo habíamos pensado originalmente
         // para recuperar la hora de retiro de un carrito en particular.
@@ -160,5 +162,6 @@ public class Carrito {
         RetiroLocal e = (RetiroLocal)getEntrega();
         return e.getHoraEntrega();
     }
+    */
 
 }

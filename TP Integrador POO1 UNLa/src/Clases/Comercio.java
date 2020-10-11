@@ -127,19 +127,12 @@ public class Comercio extends Actor {
 
     public LocalTime traerHoraRetiro(LocalDate fordate) throws Exception {
         // Que se supone que tengo que hacer aca??????????
-        // Asumo que tengo que iterar por lstDiaRetiro
-        // y devolver la primera hora disponible para dado dia de la semana,
-        // o tirar una excepcion en caso contrario
-        LocalTime soonestTime = null;
-        DayOfWeek forweekday = fordate.getDayOfWeek();
-        for (DiaRetiro when: this.lstDiaRetiro) {
-            DayOfWeek retiroDay = DayOfWeek.of(when.getDiaSemana());
-            if (forweekday == retiroDay && (soonestTime == null || when.getHoraDesde().isBefore(soonestTime))) {
-                soonestTime = when.getHoraDesde();
-            }
+        List<Turno> turnos = generarTurnosLibres(fordate);
+        if (turnos.isEmpty()) {
+            throw new Exception("No hay turnos libres para este dia de la semana lol");
         }
-        if (soonestTime == null) throw new Exception("No existe intervalo de retiro para este dia de la semana lol");
-        return soonestTime;
+        ordenarTurnos(turnos);
+        return turnos.get(0).getHora();
     }
 
     private void ordenarTurnos(List<Turno> turnos) {
@@ -196,14 +189,16 @@ public class Comercio extends Actor {
                     // System.out.println("DEBUG: 3");
                     Turno turno = new Turno(proximamente, tshift, false);
                     for (Carrito chn : changuitos) { // Ya se que estos tienen entrega de tipo RetiroLocal y son para hoy :)
-                        // RetiroLocal rl = (RetiroLocal) chn.getEntrega();
-                        // if (rl.getHoraEntrega().equals(tshift)) turno.setOcupado(true);
+                        RetiroLocal rl = (RetiroLocal) chn.getEntrega();
+                        if (rl.getHoraEntrega().equals(tshift)) turno.setOcupado(true);
+                        /*
                         try {
                             if (chn.traerHoraRetiro(null).equals(tshift)) turno.setOcupado(true);
                         } catch (Exception e) {
                             // lol.
                             System.out.println(e.getMessage());
                         }
+                        */
                     }
                     turnos.add(turno);
                 }
@@ -214,7 +209,7 @@ public class Comercio extends Actor {
 
     public List<Turno> generarTurnosLibres(LocalDate fecha) {
         List<Turno> all = generarTurnos(fecha.getDayOfWeek());
-        List<Turno> proper = new ArrayList<Turno>();
+        ArrayList<Turno> proper = new ArrayList<Turno>();
         for (Turno t : all) {
             if (!t.isOcupado()) proper.add(t);
         }
