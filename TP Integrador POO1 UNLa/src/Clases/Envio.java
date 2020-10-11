@@ -54,7 +54,7 @@ public class Envio extends Entrega {
     }
 
 //----------metodos----------
-
+    
 // 16) + setCosto(Ubicacion ubicacion, double costoFijo, double costoPorKm):
 // 17) + traerUbicacion() : Ubicacion
 }

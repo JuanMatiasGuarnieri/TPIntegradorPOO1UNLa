@@ -54,9 +54,9 @@ public abstract class Actor {
 		if (identificadorStr.length() != 11 ) {
 			return booleano;
 		}
-		//Inicializamos una matriz por la cual se multiplicar�n cada uno de los d�gitos
+		//Inicializamos una matriz por la cual se multiplicaran cada uno de los digitos
         Integer[] serie = {5, 4, 3, 2, 7, 6, 5, 4, 3, 2};
-      //Creamos una variable auxiliar donde guardaremos los resultados del calculo del n�mero validador
+      //Creamos una variable auxiliar donde guardaremos los resultados del calculo del numero validador
         Integer aux = 0;
         //Recorremos las matrices de forma simultanea, sumando los productos de la serie por el n�mero en la misma posici�n
         for (int i=0; i<10; i++){

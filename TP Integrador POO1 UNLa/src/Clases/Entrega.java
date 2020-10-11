@@ -1,6 +1,7 @@
 package Clases;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public abstract class Entrega {
     protected int id;
@@ -41,5 +42,5 @@ public abstract class Entrega {
         this.efectivo = efectivo;
     }
 //----------metodos----------
-
+    
 }

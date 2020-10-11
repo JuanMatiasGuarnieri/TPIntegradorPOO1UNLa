@@ -46,5 +46,6 @@ public class Turno {
     public String toString() {
         return "Turno: "+dia.getDayOfMonth()+"/"+dia.getMonthValue()+" "+hora.toString()+" | "+(ocupado?"OCUPADO":"LIBRE");
     }
+    
 
 }
