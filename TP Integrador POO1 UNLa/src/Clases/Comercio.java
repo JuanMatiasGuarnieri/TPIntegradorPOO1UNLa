@@ -11,6 +11,8 @@ import java.util.List;
 
 import Clases.DiaRetiro;
 
+
+
 public class Comercio extends Actor {
     private String nombreComercio;
     private long cuit;
@@ -238,6 +240,16 @@ public class Comercio extends Actor {
             System.out.println(t.toString());
         }
     }
+    
+    public String mostrarAgendaPorFecha(LocalDate fecha) {
+    	String agenda=" ";
+    	List<Turno> lista= generarAgenda(fecha);
+    	for(int i=0;i<lista.size();i++) {
+    		agenda+= lista.get(i).toString()+"\n";
+    	}
+    	return agenda;
+    }
+    
 
     //validar dni y cuit
     protected boolean validarIdentificadorUnico (long identificador) {
@@ -246,6 +258,19 @@ public class Comercio extends Actor {
     }
 
     //Articulos
+    public Articulo traerArticulo(int idArticulo) {
+    	Articulo articulo=null;
+    	int i=0;
+    	while(articulo==null && i<lstArticulo.size()){
+    		Articulo articuloAux = lstArticulo.get(i);
+    		if(articuloAux.getId()==idArticulo) {
+    			articulo=articuloAux;
+    		}//cierra if
+    		i++;
+    	}//cierra while
+    	return articulo;
+    }
+    
     public Articulo traerArticuloPorId(int idArticulo) {
         Articulo resultado = null;
         for(Articulo arti : this.lstArticulo) {
@@ -376,6 +401,31 @@ public class Comercio extends Actor {
         }
         car.setEntrega(new Envio(car.getId(), fecha, efectivo,horaHasta, horaDesde, 0, ubicacion));
     }
+    
+    //Nuevos metodos?
+    public void cerrarCarrito(Cliente cliente)throws Exception {
+    	Carrito carrito= traerCarritoPorCliente(cliente);
+    	if(carrito==null) {
+    		throw new Exception("Su carrito esta Cerrado");
+    	}else {
+    		carrito.calcularDescuentoCarrito(diaDescuento, porcentajeDescuentoDia, porcentajeDescuentoEfectivo);
+    		carrito.setCerrado(true);
+    	}
+    }
+    
+    public String imprimirCarrito(Cliente cliente) {
+		return traerCarritoPorCliente(cliente).toString();
+	}
+
+    
+    public Ubicacion traerUbicacion() {
+		return super.contacto.getUbicacion();
+	}
+
+public void cargarDestino(Cliente cliente) {
+	Envio envioLocal=(Envio)traerCarritoPorCliente(cliente).getEntrega();
+	envioLocal.setCosto(traerUbicacion(), costoFijo, costoPorKm);
+}
     
     
 }

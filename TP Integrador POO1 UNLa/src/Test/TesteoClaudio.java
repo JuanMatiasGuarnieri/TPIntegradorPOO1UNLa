@@ -28,7 +28,7 @@ public class TesteoClaudio {
         }
 
         System.out.println("\n2.1) ----- Creando clientes -----");
-        Cliente cli1 = null, cli2 = null, cli3 = null, cli4 = null;
+        Cliente cli1 = null, cli2 = null, cli3 = null, cli4 = null, cli5 = null;
         try {
             cli1 = new Cliente(1,
                     new Contacto("xd@gmail.com", "2223334444", new Ubicacion(69,420)),
@@ -45,6 +45,9 @@ public class TesteoClaudio {
             cli4 = new Cliente(4,
                     new Contacto("xd@gmail.com", "2223334444", new Ubicacion(69,420)),
                     "Corsico", "Claudio", 11222666, 'm');
+            cli5 = new Cliente(5,
+                    new Contacto("xd@gmail.com", "2223334444", new Ubicacion(69,420)),
+                    "Seru", "Giran", 11252665, 'm');
             System.out.println(cli4.toString());
         } catch(Exception e) {
             System.out.println(e.getMessage());
@@ -92,14 +95,20 @@ public class TesteoClaudio {
         try {
             Almacen.agregarCarritoLstCarritos(cli3);
             Almacen.agregarCarritoLstCarritos(cli4);
+            Almacen.agregarCarritoLstCarritos(cli5);
             Carrito car1 = Almacen.traerCarritoPorCliente(cli3);
             Carrito car2 = Almacen.traerCarritoPorCliente(cli4);
+            Carrito car3 = Almacen.traerCarritoPorCliente(cli5);
             car1.agregarAlCarrito(chernobylSorpresa, 69);
             car2.agregarAlCarrito(pezkado, 420);
+            car3.agregarAlCarrito(pezkado, 530);
             LocalTime when = Almacen.traerHoraRetiro(unafecha);
+            Almacen.generarUnaEntrega(cli5, unafecha, true, when);
+            when = Almacen.traerHoraRetiro(unafecha);
             Almacen.generarUnaEntrega(cli4, unafecha, true, when);
             when = Almacen.traerHoraRetiro(unafecha);
             Almacen.generarUnaEntrega(cli3, unafecha, true, when);
+            
         } catch (Exception e) {
             System.out.println("OH NO");
             System.out.println(e.toString());
