@@ -59,7 +59,7 @@ public abstract class Actor {
 		String identificadorStr = String.valueOf(identificador);
 		
 		if(this instanceof Cliente) {															//Si es cliente tiene dni
-			return(identificadorStr.length() == 7 || identificadorStr.length() == 8);		//Los dni solo tienen 8 o 9 digitos
+			return(identificadorStr.length() == 7 || identificadorStr.length() == 8);		//Los dni tienen entre 7 y 8 digitos
 		}
 		
 		else if(identificadorStr.length() != 11) {											//Si no es cliente es comercio y tiene cuit
@@ -74,20 +74,20 @@ public abstract class Actor {
 		if (identificadorStr.length() != 11 ) {
 			return booleano;
 		}
-		//Inicializamos una matriz por la cual se multiplicar�n cada uno de los d�gitos
+		//Inicializamos una matriz por la cual se multiplicar�n cada uno de los digitos
         Integer[] serie = {5, 4, 3, 2, 7, 6, 5, 4, 3, 2};
-      //Creamos una variable auxiliar donde guardaremos los resultados del calculo del n�mero validador
+      //Creamos una variable auxiliar donde guardaremos los resultados del calculo del numero validador
         Integer aux = 0;
-        //Recorremos las matrices de forma simultanea, sumando los productos de la serie por el n�mero en la misma posici�n
+        //Recorremos las matrices de forma simultanea, sumando los productos de la serie por el numero en la misma posicion
         for (int i=0; i<10; i++){
             aux += Integer.valueOf(cuitArray[i]) * serie[i];
         }
-      //Hacemos como se especifica: 11 menos el resto de de la divisi�n de la suma de productos anterior por 11
+      //Hacemos como se especifica: 11 menos el resto de de la division de la suma de productos anterior por 11
         aux = 11 - (aux % 11);
-        //Si el resultado anterior es 11 el c�digo es 0
+        //Si el resultado anterior es 11 el codigo es 0
         if (aux == 11){
             aux = 0;
-        //o si el resultado anterior es 10 el c�digo es 9
+        //o si el resultado anterior es 10 el codigo es 9
         } else if (aux == 10){
         	
             aux = 9;

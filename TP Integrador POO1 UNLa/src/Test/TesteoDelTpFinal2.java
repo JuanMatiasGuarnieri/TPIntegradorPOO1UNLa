@@ -1,5 +1,7 @@
 package Test;
 import Clases.*;
+
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -11,15 +13,22 @@ public class TesteoDelTpFinal2 {
 		// OBJETOS INSTANCIADOS
 		        Cliente cliente1 = null;
 		        Cliente cliente2 = null;
+		        Cliente cliente3 = null;
+		        Cliente cliente4 = null;
 		        LocalDate unaFecha = LocalDate.now();
-				Ubicacion ubicacionCliente1 = new Ubicacion(-34.726534, -58.395042);
-				Ubicacion ubicacionCliente2 = new Ubicacion(-34.733059, -58.396243);
+		        int weekday = unaFecha.getDayOfWeek().getValue();
+		        Ubicacion ubicacionCliente1 = new Ubicacion(-34.912329, -56.181482);
+				Ubicacion ubicacionCliente2 = new Ubicacion(-34.902366, -56.193049);
+				Ubicacion ubicacionCliente3 = new Ubicacion(-34.899121, -56.189910);
+				Ubicacion ubicacionCliente4 = new Ubicacion(-34.899121, -56.189910);
 				Contacto contactoCliente1 = new Contacto("Cliente1@gmail.com", "1562548596", ubicacionCliente1);// R
 				Contacto contactoCliente2 = new Contacto("Cliente2@gmail.com", "1565401669", ubicacionCliente2);// R
+				Contacto contactoCliente3 = new Contacto("Cliente3@gmail.com", "1542788149", ubicacionCliente3);// R
+				Contacto contactoCliente4 = new Contacto("Cliente4@gmail.com", "1549828149", ubicacionCliente3);// R
 				Comercio almacenGranate = null;
-				Ubicacion ubicacionDelAlmacen = new Ubicacion(-34.731301, -58.393473);
+				Ubicacion ubicacionDelAlmacen = new Ubicacion(-34.911996, -56.186402);
 				Contacto contactoAlmacen = new Contacto("almacenGranate@gmail.com", "1560025631", ubicacionDelAlmacen);// R
-				int weekday = unaFecha.getDayOfWeek().getValue();
+				
 
 				System.out.println("ESCENARIO 1: VALIDACIONES DE CUIT Y DNI");
 
@@ -28,7 +37,11 @@ public class TesteoDelTpFinal2 {
 							cliente1= new Cliente(2, contactoCliente1, "Guarnieri", "Matias", 41785928,'m');
 							System.out.println(cliente1);
 							cliente2= new Cliente(3, contactoCliente2, "Basilio", "Matias", 41835909,'m');
-							//System.out.println(cliente2);
+							System.out.println(cliente2);
+							cliente3= new Cliente(4, contactoCliente3, "Corsico", "Claudio",42001124,'m');
+							System.out.println(cliente3);
+							cliente4= new Cliente(5, contactoCliente4, "Alegre", "Luis",42801924,'m');
+							System.out.println(cliente4);
 						}
 						catch(Exception e){
 							System.out.println(e.getMessage());
@@ -42,6 +55,15 @@ public class TesteoDelTpFinal2 {
 						catch(Exception e){
 							System.out.println(e.getMessage());
 						}
+				
+				try {
+					System.out.println("\n-----Ingreso cliente con sexo invalidado -----");
+					cliente1= new Cliente(2, contactoCliente1, "Guarnieri", "Matias", 485798,'t');
+					System.out.println(cliente1);
+				}
+				catch(Exception e){
+					System.out.println(e.getMessage());
+				}
 
 				try {
 							System.out.println("\n-----Ingreso comercio con Cuit validado-----");
@@ -104,6 +126,8 @@ public class TesteoDelTpFinal2 {
 							System.out.println("\n-----Ingreso del carrito-----");		
 							almacenGranate.agregarCarritoLstCarritos(cliente1);
 							almacenGranate.agregarCarritoLstCarritos(cliente2);
+							almacenGranate.agregarCarritoLstCarritos(cliente3);
+							almacenGranate.agregarCarritoLstCarritos(cliente4);
 							System.out.println("Carrito ingresado Correctamente");
 
 						}
@@ -132,8 +156,14 @@ public class TesteoDelTpFinal2 {
 							almacenGranate.traerCarritoPorCliente(cliente1).agregarAlCarrito(almacenGranate.traerArticulo(2), 6);
 							almacenGranate.traerCarritoPorCliente(cliente2).agregarAlCarrito(almacenGranate.traerArticulo(2), 6);
 							almacenGranate.traerCarritoPorCliente(cliente2).agregarAlCarrito(almacenGranate.traerArticulo(1), 4);
+							almacenGranate.traerCarritoPorCliente(cliente3).agregarAlCarrito(almacenGranate.traerArticulo(3), 5);
+							almacenGranate.traerCarritoPorCliente(cliente3).agregarAlCarrito(almacenGranate.traerArticulo(2), 4);
+							almacenGranate.traerCarritoPorCliente(cliente4).agregarAlCarrito(almacenGranate.traerArticulo(1), 7);
+							almacenGranate.traerCarritoPorCliente(cliente4).agregarAlCarrito(almacenGranate.traerArticulo(3), 3);
 							System.out.println(almacenGranate.traerCarritoPorCliente(cliente1).mostrarListaDeItemsCarrito());
 							System.out.println(almacenGranate.traerCarritoPorCliente(cliente2).mostrarListaDeItemsCarrito());
+							System.out.println(almacenGranate.traerCarritoPorCliente(cliente3).mostrarListaDeItemsCarrito());
+							System.out.println(almacenGranate.traerCarritoPorCliente(cliente4).mostrarListaDeItemsCarrito());
 						}
 						catch(Exception e){
 							System.out.println(e.getMessage());
@@ -167,33 +197,36 @@ public class TesteoDelTpFinal2 {
 					almacenGranate.traerCarritoPorCliente(cliente1).sacarDelCarrito(almacenGranate.traerArticulo(2), 3);
 					System.out.println(almacenGranate.traerCarritoPorCliente(cliente1).mostrarListaDeItemsCarrito());
 					//vuelvo a agregar 10 choc
-					System.out.println("vuelvo a agregar 10 choc");
+					System.out.println("vuelvo a agregar 10 chocolates");
 					almacenGranate.traerCarritoPorCliente(cliente1).agregarAlCarrito(almacenGranate.traerArticulo(1), 10);
 					System.out.println(almacenGranate.traerCarritoPorCliente(cliente1).mostrarListaDeItemsCarrito());
 				}
 				catch(Exception e){
 					System.out.println(e.getMessage());
 				}
-				
+             /////////////////////////////////////// ESCENARIO 5 (CU: "generarAgenda()") ///////////////////////////////////////
 				try {
 					
 					almacenGranate.agregarDiaRetiros(weekday, LocalTime.of(9, 0), LocalTime.of(10, 0), 15);
 		            almacenGranate.agregarDiaRetiros(weekday, LocalTime.of(17, 30), LocalTime.of(20, 00), 30);
 					// muestro la agenda
-					System.out.println("\nAgenda: ");
+					
 					LocalTime when = almacenGranate.traerHoraRetiro(unaFecha);
 					almacenGranate.generarUnaEntrega(cliente1, unaFecha, false, when ); //definido a retiro local
 					when = almacenGranate.traerHoraRetiro(unaFecha);
 					almacenGranate.generarUnaEntrega(cliente2, unaFecha, false, when );
+					when = almacenGranate.traerHoraRetiro(unaFecha);
 					almacenGranate.imprimirAgenda(unaFecha);
 					System.out.println("\nTurnos ocupados: ");
 					System.out.println(almacenGranate.traerTurnosOcupados(unaFecha));
 					System.out.println("\nTurnos libres: ");
 					System.out.println(almacenGranate.generarTurnosLibres(unaFecha));
-					// agenda
-					System.out.println("\n-------Cierro el carrito y calculo el total a pagar, incluyendo los descuentos---");
+					System.out.println("\n-------Cierro carritos y calculo el total a pagar, incluyendo los descuentos---");
 					almacenGranate.cerrarCarrito(cliente1);
+					almacenGranate.cerrarCarrito(cliente2);
 					System.out.println(almacenGranate.imprimirCarrito(cliente1));
+					System.out.println(almacenGranate.imprimirCarrito(cliente2));
+					
 					
 				}
 				catch(Exception e) {
@@ -223,7 +256,12 @@ public class TesteoDelTpFinal2 {
 				System.out.println("\n\n-------------------ppppp-----------------------------------------");
 				try {
 					System.out.println("\n\n----------Retiro por local---------------");
-					almacenGranate.generarUnaEntrega(cliente1, LocalDate.now(), false, LocalTime.of(11,30 ));
+					System.out.println("\n\nPrimero mostramos la agenda , luego agregamos otra entrega y la volvemos a mostrar");
+					LocalTime when = almacenGranate.traerHoraRetiro(unaFecha);
+					almacenGranate.imprimirAgenda(unaFecha);
+					almacenGranate.generarUnaEntrega(cliente3, unaFecha, false, when );
+					System.out.println("\n\nVolvemos a mostrar la agenda, esta vez con un nuevo turno");
+					almacenGranate.imprimirAgenda(unaFecha);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}
@@ -231,8 +269,8 @@ public class TesteoDelTpFinal2 {
 		       //retiro local (excepcion por carrito cerrado)	
 				try {
 					System.out.println("\n\n----------Retiro por local (carrito cerrado)---------------");
-					almacenGranate.cerrarCarrito(cliente1);
-					almacenGranate.generarUnaEntrega(cliente1, LocalDate.now(), false, LocalTime.of(10, 0)); 
+					almacenGranate.cerrarCarrito(cliente3);
+					almacenGranate.generarUnaEntrega(cliente3, LocalDate.now(), false, LocalTime.of(10, 0)); 
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}
@@ -241,8 +279,8 @@ public class TesteoDelTpFinal2 {
 				// se cierra el carrito y calculo el costo
 				try {
 					System.out.println("\n-------Cierro el carrito y calculo el total a pagar, incluyendo los descuentos---");
-					almacenGranate.cerrarCarrito(cliente1);
-					System.out.println(almacenGranate.imprimirCarrito(cliente1));
+					almacenGranate.cerrarCarrito(cliente3);
+					System.out.println(almacenGranate.imprimirCarrito(cliente3));
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}
@@ -254,14 +292,14 @@ public class TesteoDelTpFinal2 {
 				try {
 					System.out.println("\n\n---------- Envio a domicilio---------------");
 					//almacenGranate.agregarCarritoLstCarritos(cliente2);
-					almacenGranate.traerCarritoPorCliente(cliente2).agregarAlCarrito(almacenGranate.traerArticulo(1), 10);
-					almacenGranate.generarUnaEntrega(cliente2, LocalDate.now(), false, LocalTime.of(10, 0), LocalTime.of(12, 0),
-							ubicacionCliente2);// envio 
-					almacenGranate.cargarDestino(cliente2);
+					almacenGranate.traerCarritoPorCliente(cliente4).agregarAlCarrito(almacenGranate.traerArticulo(1), 10);
+					almacenGranate.generarUnaEntrega(cliente4, unaFecha, false, LocalTime.of(10, 0), LocalTime.of(12, 0),
+							ubicacionCliente4);// envio 
+					almacenGranate.cargarDestino(cliente4);
 					
 					System.out.println("\n-----------Cierro el carrito y calculo el total a pagar, incluyendo los descuentos.---------");
-					almacenGranate.cerrarCarrito(cliente2);
-					System.out.println("\n" + almacenGranate.imprimirCarrito(cliente2));
+					almacenGranate.cerrarCarrito(cliente4);
+					System.out.println("\n" + almacenGranate.imprimirCarrito(cliente4));
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}
