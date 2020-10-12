@@ -110,19 +110,20 @@ public class Articulo {
     	
     	int pares = 0; 
 		int impares = 0; 
+		int total = 0;
 		int checkSum = 0; 
 		long longCodBarras = Long.parseLong(codBarras);
 		long ultDigito = longCodBarras % 10;
-		for (int i=0;i<12; i++) {
-		    int digito = Integer.parseInt(codBarras.substring(i,i+1));
-		    if (i%2==0) {
-		        pares += digito;
-		    } else {
+		for (int i=1;i<13; i++) {
+		    int digito = Integer.parseInt(codBarras.substring(i-1,i));
+		    if (i%2!=0) {
 		        impares += digito;
+		    } else {
+		        pares += digito;
 		    }
 		}
-		impares = impares * 3; //multiplicar impares por 3
-		int total = impares + pares; //sumar pares e impares
+		pares = pares * 3; //multiplicar pares por 3
+		total = impares + pares; //sumar pares e impares
 		if (total % 10 == 0) { //Si el total es divisible por 10
 		    checkSum = 0;//Checksum es 0
 		} else { //si total no es divisible por 10

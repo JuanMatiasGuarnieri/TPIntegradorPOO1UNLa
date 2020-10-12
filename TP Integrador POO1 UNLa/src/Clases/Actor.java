@@ -53,7 +53,7 @@ public abstract class Actor {
 	}
 	//metodos
 	protected boolean validarIdentificadorUnico (long identificador) {
-		String xyStr, dniStr, digitoStr,cuitMenosI;
+		String digitoStr,cuitMenosI;
 		
 		boolean booleano = false;
 		String identificadorStr = String.valueOf(identificador);
@@ -63,17 +63,13 @@ public abstract class Actor {
 		}
 		
 		else if(identificadorStr.length() != 11) {											//Si no es cliente es comercio y tiene cuit
-	    	return false;																		//los cuit solo tienen 11 dígitos
+	    	return booleano;																		//los cuit solo tienen 11 dígitos
 		}
 		
-		xyStr = identificadorStr.substring(0, 2);
-		dniStr = identificadorStr.substring(2, 10); 
 		digitoStr = identificadorStr.substring(10, 11);
 		cuitMenosI = identificadorStr.substring(0,11);
 		String[] cuitArray = cuitMenosI.split(""); 
-		if (identificadorStr.length() != 11 ) {
-			return booleano;
-		}
+		
 		//Inicializamos una matriz por la cual se multiplicar�n cada uno de los digitos
         Integer[] serie = {5, 4, 3, 2, 7, 6, 5, 4, 3, 2};
       //Creamos una variable auxiliar donde guardaremos los resultados del calculo del numero validador
