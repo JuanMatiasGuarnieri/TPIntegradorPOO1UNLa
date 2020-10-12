@@ -74,6 +74,50 @@ public class TesteoClaudio {
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
+        
+        System.out.println("\n3.1) ----- Agregando articulos con cod Barras Erroneo -----");
+        
+        try {
+        	Almacen.agregarArticulosLstArticulos("Alfajor", "7782397778949888", 30d);
+        	
+        }
+        catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        
+        
+        try {
+			System.out.println("\n\n-----Agrego productos al carrito-----");
+			cli1 = new Cliente(1,
+                    new Contacto("xd@gmail.com", "2223334444", new Ubicacion(69,420)),
+                    "Guarnieri", "Matias", 11222333, 'm');
+			System.out.println("\n\nPENE");
+			Almacen.agregarArticulosLstArticulos("Alfajor", "7792345678909", 30d);
+            Almacen.agregarArticulosLstArticulos("Atun", "7791234567898", 60d);
+            Almacen.agregarArticulosLstArticulos("Chocolatin", "7793456789010", 20d);
+			Almacen.traerCarritoPorCliente(cli1).agregarAlCarrito(Almacen.traerArticulo(1), 9);
+			Almacen.traerCarritoPorCliente(cli1).agregarAlCarrito(Almacen.traerArticulo(2), 6);
+			Almacen.traerCarritoPorCliente(cli2).agregarAlCarrito(Almacen.traerArticulo(2), 6);
+			Almacen.traerCarritoPorCliente(cli2).agregarAlCarrito(Almacen.traerArticulo(1), 4);
+			System.out.println(Almacen.traerCarritoPorCliente(cli1).mostrarListaDeItemsCarrito());
+			System.out.println(Almacen.traerCarritoPorCliente(cli2).mostrarListaDeItemsCarrito());
+		}
+		catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+        
+        
+        
+        try {
+			System.out.println("\n-----Resto productos del carrito-----");
+			Almacen.traerCarritoPorCliente(cli1).sacarDelCarrito(Almacen.traerArticulo(1), 2);
+			System.out.println(Almacen.traerCarritoPorCliente(cli1).mostrarListaDeItemsCarrito());
+		}
+		catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+        
 
         System.out.println("\n4) ----- Dias de Retiro -----");
         System.out.println("\n4.1) ----- Agregando -----");
@@ -96,12 +140,8 @@ public class TesteoClaudio {
             Almacen.agregarCarritoLstCarritos(cli3);
             Almacen.agregarCarritoLstCarritos(cli4);
             Almacen.agregarCarritoLstCarritos(cli5);
-            Carrito car1 = Almacen.traerCarritoPorCliente(cli3);
-            Carrito car2 = Almacen.traerCarritoPorCliente(cli4);
-            Carrito car3 = Almacen.traerCarritoPorCliente(cli5);
-            car1.agregarAlCarrito(chernobylSorpresa, 69);
-            car2.agregarAlCarrito(pezkado, 420);
-            car3.agregarAlCarrito(pezkado, 530);
+            
+           // car1.mostrarListaDeItemsCarrito();
             LocalTime when = Almacen.traerHoraRetiro(unafecha);
             Almacen.generarUnaEntrega(cli5, unafecha, true, when);
             when = Almacen.traerHoraRetiro(unafecha);
@@ -113,6 +153,22 @@ public class TesteoClaudio {
             System.out.println("OH NO");
             System.out.println(e.toString());
         }
+        
+        System.out.println("\n4.5) ----- Agregar articulos al carrito -----");
+        
+        try {
+        	
+        	Almacen.agregarCarritoLstCarritos(cli3);
+            Almacen.agregarCarritoLstCarritos(cli4);
+            Almacen.agregarCarritoLstCarritos(cli5);
+            Carrito car1 = Almacen.traerCarritoPorCliente(cli3);
+            Carrito car2 = Almacen.traerCarritoPorCliente(cli4);
+            Carrito car3 = Almacen.traerCarritoPorCliente(cli5);
+        }
+        catch (Exception e) {
+        	System.out.println(e.toString());
+        }
+        
 
         System.out.println("\n4.3) ----- Agenda -----");
         Almacen.imprimirAgenda(unafecha);
