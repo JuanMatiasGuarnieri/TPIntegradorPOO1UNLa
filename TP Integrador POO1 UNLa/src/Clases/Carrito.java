@@ -91,6 +91,9 @@ public class Carrito {
 
 		return "\nLos Articulos del carrito son:\n"+articulos;
 	}
+	public void imprimirListaDeItemsCarrito() {
+		System.out.println(mostrarListaDeItemsCarrito());
+	}
 
 	@Override
 	public String toString() {
