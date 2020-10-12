@@ -62,5 +62,43 @@ public class Cliente extends Actor {
         return "\nCliente apellido = " + apellido + "\nNombre = " + nombre + "\ndni = " + dni;
     }
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((apellido == null) ? 0 : apellido.hashCode());
+		result = prime * result + (int) (dni ^ (dni >>> 32));
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result + sexo;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cliente other = (Cliente) obj;
+		if (apellido == null) {
+			if (other.apellido != null)
+				return false;
+		} else if (!apellido.equals(other.apellido))
+			return false;
+		if (dni != other.dni)
+			return false;
+		if (nombre == null) {
+			if (other.nombre != null)
+				return false;
+		} else if (!nombre.equals(other.nombre))
+			return false;
+		if (sexo != other.sexo)
+			return false;
+		return true;
+	}
+
+    
     
 }

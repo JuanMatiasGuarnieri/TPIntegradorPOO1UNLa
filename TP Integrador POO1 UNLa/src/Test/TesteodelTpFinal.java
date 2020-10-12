@@ -127,8 +127,8 @@ public class TesteodelTpFinal {
 
 				                 try {
 							System.out.println("\n\n-----Agrego productos al carrito-----");
-							almacenGranate.traerCarritoPorCliente(cliente1).agregarAlCarrito(almacenGranate.traerArticulo(1), 8);
-							almacenGranate.traerCarritoPorCliente(cliente1).agregarAlCarrito(almacenGranate.traerArticulo(2), 7);
+							almacenGranate.traerCarritoPorCliente(cliente1).agregarAlCarrito(almacenGranate.traerArticulo(1), 9);
+							almacenGranate.traerCarritoPorCliente(cliente1).agregarAlCarrito(almacenGranate.traerArticulo(2), 6);
 							almacenGranate.traerCarritoPorCliente(cliente2).agregarAlCarrito(almacenGranate.traerArticulo(2), 6);
 							almacenGranate.traerCarritoPorCliente(cliente2).agregarAlCarrito(almacenGranate.traerArticulo(1), 4);
 							System.out.println(almacenGranate.traerCarritoPorCliente(cliente1).mostrarListaDeItemsCarrito());
@@ -156,9 +156,27 @@ public class TesteodelTpFinal {
 						catch(Exception e){
 							System.out.println(e.getMessage());
 						}
+				
+				//4.d Eliminar Articulos a la lista de items
 				try {
-					almacenGranate.generarUnaEntrega(cliente1, LocalDate.now(), false, LocalTime.of(11,00 )); //definido a retiro local
-					almacenGranate.generarUnaEntrega(cliente2, LocalDate.now(), false, LocalTime.of(10,00 ));
+					System.out.println("\n-----Eliminar articulos de la lista------");
+					//saco mis 10 choc
+					System.out.println("saco mis 10 chocolates");
+					almacenGranate.traerCarritoPorCliente(cliente1).sacarDelCarrito(almacenGranate.traerArticulo(1), 10);
+					almacenGranate.traerCarritoPorCliente(cliente1).sacarDelCarrito(almacenGranate.traerArticulo(2), 3);
+					System.out.println(almacenGranate.traerCarritoPorCliente(cliente1).mostrarListaDeItemsCarrito());
+					//vuelvo a agregar 10 choc
+					System.out.println("vuelvo a agregar 10 choc");
+					almacenGranate.traerCarritoPorCliente(cliente1).agregarAlCarrito(almacenGranate.traerArticulo(1), 10);
+					System.out.println(almacenGranate.traerCarritoPorCliente(cliente1).mostrarListaDeItemsCarrito());
+				}
+				catch(Exception e){
+					System.out.println(e.getMessage());
+				}
+				
+				try {
+					almacenGranate.generarUnaEntrega(cliente1, LocalDate.now(), false, LocalTime.of(9,00 )); //definido a retiro local
+					almacenGranate.generarUnaEntrega(cliente2, LocalDate.now(), false, LocalTime.of(7,00 ));
 				}
 				catch(Exception e) {
 					System.out.println(e.getMessage());
@@ -168,13 +186,13 @@ public class TesteodelTpFinal {
 					System.out.println("\n\n-----Genero agenda del comercio -----");
 					
 					// agenda
-					almacenGranate.agregarDiaRetiros(7, LocalTime.of(07, 00), LocalTime.of(15, 00), 60);// R
-					almacenGranate.agregarDiaRetiros(6, LocalTime.of(07, 00), LocalTime.of(15, 00), 60);// R
-					almacenGranate.agregarDiaRetiros(5, LocalTime.of(07, 00), LocalTime.of(14, 00), 60);// R
-					almacenGranate.agregarDiaRetiros(4, LocalTime.of(07, 00), LocalTime.of(14, 00), 60);// R
-					almacenGranate.agregarDiaRetiros(3, LocalTime.of(07, 00), LocalTime.of(14, 00), 60);// R
-					almacenGranate.agregarDiaRetiros(2, LocalTime.of(07, 00), LocalTime.of(14, 00), 60);// R
-					almacenGranate.agregarDiaRetiros(1, LocalTime.of(07, 00), LocalTime.of(14, 00), 60);// R
+					almacenGranate.agregarDiaRetiros(7, LocalTime.of(7, 00), LocalTime.of(15, 00), 60);// R
+					almacenGranate.agregarDiaRetiros(6, LocalTime.of(7, 00), LocalTime.of(15, 00), 60);// R
+					almacenGranate.agregarDiaRetiros(5, LocalTime.of(7, 00), LocalTime.of(14, 00), 60);// R
+					almacenGranate.agregarDiaRetiros(4, LocalTime.of(7, 00), LocalTime.of(14, 00), 60);// R
+					almacenGranate.agregarDiaRetiros(3, LocalTime.of(7, 00), LocalTime.of(14, 00), 60);// R
+					almacenGranate.agregarDiaRetiros(2, LocalTime.of(7, 00), LocalTime.of(14, 00), 60);// R
+					almacenGranate.agregarDiaRetiros(1, LocalTime.of(7, 00), LocalTime.of(14, 00), 60);// R
 					// muestro la agenda
 					System.out.println("\nAgenda: ");
 					System.out.println(almacenGranate.mostrarAgendaPorFecha(LocalDate.now()));
@@ -211,6 +229,7 @@ public class TesteodelTpFinal {
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}
+	
 				
 
 		/////////////////////////////////////// ESCENARIO 8 (CU: "envio()") ///////////////////////////////////////

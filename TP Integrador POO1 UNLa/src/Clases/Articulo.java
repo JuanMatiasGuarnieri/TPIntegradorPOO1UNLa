@@ -59,9 +59,56 @@ public class Articulo {
     }
 
 
-    //----------metodos----------
+    
+    
+    
+    
+    @Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((codBarras == null) ? 0 : codBarras.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(precio);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Articulo other = (Articulo) obj;
+		if (codBarras == null) {
+			if (other.codBarras != null)
+				return false;
+		} else if (!codBarras.equals(other.codBarras))
+			return false;
+		if (id != other.id)
+			return false;
+		if (nombre == null) {
+			if (other.nombre != null)
+				return false;
+		} else if (!nombre.equals(other.nombre))
+			return false;
+		if (Double.doubleToLongBits(precio) != Double.doubleToLongBits(other.precio))
+			return false;
+		return true;
+	}
+
+	//----------metodos----------
     public boolean validarCodBarras(String codBarras) {
-		int pares = 0; 
+    	if(codBarras.length()!=13) {
+    		return false;
+    	   }
+    	
+    	int pares = 0; 
 		int impares = 0; 
 		int checkSum = 0; 
 		long longCodBarras = Long.parseLong(codBarras);

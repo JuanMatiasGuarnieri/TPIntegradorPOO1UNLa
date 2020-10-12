@@ -126,10 +126,72 @@ public class Comercio extends Actor {
         this.lstArticulo = lstArticulo;
     }
 
-  /*  @Override
+  
+    
+    
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		long temp;
+		temp = Double.doubleToLongBits(costoFijo);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(costoPorKm);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + (int) (cuit ^ (cuit >>> 32));
+		result = prime * result + diaDescuento;
+		result = prime * result + ((lstArticulo == null) ? 0 : lstArticulo.hashCode());
+		result = prime * result + ((lstCarrito == null) ? 0 : lstCarrito.hashCode());
+		result = prime * result + ((lstDiaRetiro == null) ? 0 : lstDiaRetiro.hashCode());
+		result = prime * result + ((nombreComercio == null) ? 0 : nombreComercio.hashCode());
+		result = prime * result + porcentajeDescuentoDia;
+		result = prime * result + porcentajeDescuentoEfectivo;
+		return result;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
-		return this.cuit == ((Comercio) obj).cuit;
-	}*/
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Comercio other = (Comercio) obj;
+		if (Double.doubleToLongBits(costoFijo) != Double.doubleToLongBits(other.costoFijo))
+			return false;
+		if (Double.doubleToLongBits(costoPorKm) != Double.doubleToLongBits(other.costoPorKm))
+			return false;
+		if (cuit != other.cuit)
+			return false;
+		if (diaDescuento != other.diaDescuento)
+			return false;
+		if (lstArticulo == null) {
+			if (other.lstArticulo != null)
+				return false;
+		} else if (!lstArticulo.equals(other.lstArticulo))
+			return false;
+		if (lstCarrito == null) {
+			if (other.lstCarrito != null)
+				return false;
+		} else if (!lstCarrito.equals(other.lstCarrito))
+			return false;
+		if (lstDiaRetiro == null) {
+			if (other.lstDiaRetiro != null)
+				return false;
+		} else if (!lstDiaRetiro.equals(other.lstDiaRetiro))
+			return false;
+		if (nombreComercio == null) {
+			if (other.nombreComercio != null)
+				return false;
+		} else if (!nombreComercio.equals(other.nombreComercio))
+			return false;
+		if (porcentajeDescuentoDia != other.porcentajeDescuentoDia)
+			return false;
+		if (porcentajeDescuentoEfectivo != other.porcentajeDescuentoEfectivo)
+			return false;
+		return true;
+	}
 
 	// ToString
 	@Override

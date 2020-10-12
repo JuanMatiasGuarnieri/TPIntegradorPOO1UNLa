@@ -1,5 +1,7 @@
 package Clases;
 
+//import almacen.Ubicacion;
+
 public class Ubicacion {
 
     private double latitud;
@@ -29,7 +31,7 @@ public class Ubicacion {
         this.longitud = longitud;
     }
 
-    public double distanciaCoord (double lat1, double lng1,double lat2, double lng2) {
+  /*  public double distanciaCoord (double lat1, double lng1,double lat2, double lng2) {
     	double radioTierra = 6371;
     	double dLat = Math.toRadians(lat2-lat1);
     	double dLng = Math.toRadians(lng2-lng1);
@@ -39,9 +41,17 @@ public class Ubicacion {
     	double va2= 2*Math.atan2(Math.sqrt(va1),Math.sqrt(1-va1));
     	
     	return radioTierra *va2;
-    }
+    }*/
     
 //----------metodos----------
+    @Override
+	public String toString() {
+		return "Ubicacion [latitud=" + latitud + ", longitud=" + longitud + "]";
+	}
+	
+	public Ubicacion traerUbicacion() {
+		return new Ubicacion(latitud, longitud);
+	}
 }
 
 
