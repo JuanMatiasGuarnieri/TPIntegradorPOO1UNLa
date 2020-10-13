@@ -23,6 +23,7 @@ public class RetiroLocal extends Entrega{
         this.horaEntrega = horaEntrega;
     }
 
+    
 //----------metodos----------
     @Override
 	public String toString() {

@@ -427,24 +427,26 @@ public class Comercio extends Actor {
         }
         return resultado;
     }
-    
+    //Recibimos por parametro diaSemana, hora desde , horaHasta y el intervalo
     public boolean agregarDiaRetiros(int diaSemana, LocalTime horaDesde, LocalTime horaHasta, int intervalo)
 			throws Exception {
 		int idDiaRetiro = 1;
 
-		// Busco el ultimo Id
-		if (getLstDiaRetiro().size() != 0) { // si la lista esta vacia el Id va a ser = 1
-			idDiaRetiro = lstDiaRetiro.get(getLstDiaRetiro().size() - 1).getId() + 1; // el ultimo id + 1
+		
+		if (getLstDiaRetiro().size() != 0) { // si la lista no esta vacia buscamos el ultimo id y le sumamos 1
+			idDiaRetiro = lstDiaRetiro.get(getLstDiaRetiro().size() - 1).getId() + 1; 
 		}
-
+		 // si la lista esta vacia el Id va a ser = 1 y creamos el primer dia
 		DiaRetiro nuevoDiaRetiro = new DiaRetiro(idDiaRetiro, diaSemana, horaDesde, horaHasta, intervalo);// creo el
 																											// nuevo dia
 
-		// Busco si el dia Existe y tiro una Exception
+		// Buscamos si el dia Existe y de ser así tiro una Excepcion
 		for (int i = 0; i < lstDiaRetiro.size(); i++) {
 			if (nuevoDiaRetiro.equals(lstDiaRetiro.get(i)))
 				throw new Exception("El dia Ya Existe! " + nuevoDiaRetiro);
 		}
+		
+		//De no existir el diaRetiro , lo agregamos a la lista
 		lstDiaRetiro.add(nuevoDiaRetiro);
 		return true;
 	}
@@ -459,14 +461,20 @@ public class Comercio extends Actor {
 		}
 		return null;
 	}
-
+      //Generar entrega tipo retiro local
+    //Recibo por parametro un objeto cliente, fecha, si es en efectivo y la hora de entrega
     public void generarUnaEntrega(Cliente cliente,LocalDate fecha, boolean efectivo, LocalTime hora)throws Exception {
-        Carrito car= traerCarritoPorCliente(cliente);
-        if(car!=null && car.getCerrado()) {
+        Carrito car= traerCarritoPorCliente(cliente); //Llamamos al metodo traerCarritoPorCliente 
+                                                      //Para crear un carrito
+        
+        if(car!=null && car.getCerrado()) { //Verificamos si el carrito esta cerrado y tiramos una excepcion
             throw new Exception("Este Carrito ya esta cerrado, ya ingreso su tipo de entrega");
         }
-        car.setEntrega(new RetiroLocal(car.getId(), fecha, efectivo, hora));
+        car.setEntrega(new RetiroLocal(car.getId(), fecha, efectivo, hora)); //Si no esta cerrado creamos entrega
     }
+    
+    //Generar entrega tipo Envio
+    //En este caso se pide por parametro horaHasta ,horaDesde y ubicacion 
     public void generarUnaEntrega(Cliente cliente,LocalDate fecha, boolean efectivo, LocalTime horaHasta,LocalTime horaDesde,Ubicacion ubicacion)throws Exception {
         Carrito car= traerCarritoPorCliente(cliente);
         if(car!=null && car.getCerrado()) {

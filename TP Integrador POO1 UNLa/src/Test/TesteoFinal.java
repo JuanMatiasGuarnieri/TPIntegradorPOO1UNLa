@@ -201,16 +201,19 @@ public class TesteoFinal {
 				}
              /////////////////////////////////////// ESCENARIO 5 (CU: "generarAgenda()") ///////////////////////////////////////
 				try {
-					
+					//Creamos el dia retiro del local con el método agregarDiaRetiros
 					almacenGranate.agregarDiaRetiros(weekday, LocalTime.of(9, 0), LocalTime.of(10, 0), 15);
 		            almacenGranate.agregarDiaRetiros(weekday, LocalTime.of(17, 30), LocalTime.of(20, 00), 30);
-					// muestro la agenda
 					
+		            //Creamos una variable LocalTime para asignar un turno libre mediante traerHoraRetiro
 					LocalTime when = almacenGranate.traerHoraRetiro(unaFecha);
+					//Generamos dos entregas y se la asignamos al carrito de cada cliente
 					almacenGranate.generarUnaEntrega(cliente1, unaFecha, false, when ); //definido a retiro local
+					//Mediante traerHoraRetiro asignamos el primer turno libre que encuentre
 					when = almacenGranate.traerHoraRetiro(unaFecha);
-					almacenGranate.generarUnaEntrega(cliente2, unaFecha, false, when );
+					almacenGranate.generarUnaEntrega(cliente2, unaFecha, false, when ); //definido a retiro local
 					when = almacenGranate.traerHoraRetiro(unaFecha);
+					//Imprimimos la agenda
 					almacenGranate.imprimirAgenda(unaFecha);
 					System.out.println("\nTurnos ocupados: ");
 					System.out.println(almacenGranate.traerTurnosOcupados(unaFecha));
@@ -273,7 +276,7 @@ public class TesteoFinal {
 					almacenGranate.generarUnaEntrega(cliente4, unaFecha, false, LocalTime.of(10, 0), LocalTime.of(12, 0),
 							ubicacionCliente4);// envio 
 					almacenGranate.cargarDestino(cliente4);
-					
+					//Cerramos carrito
 					System.out.println("\n-----------Cierro el carrito y calculo el total a pagar, incluyendo los descuentos.---------");
 					almacenGranate.cerrarCarrito(cliente4);
 					System.out.println("\n" + almacenGranate.imprimirCarrito(cliente4));

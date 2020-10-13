@@ -52,22 +52,22 @@ public abstract class Actor {
 		return true;
 	}
 	//metodos
-	protected boolean validarIdentificadorUnico (long identificador) {
+	protected boolean validarIdentificadorUnico (long identificador) {  //Recibe por par�metro un dni o un cuit
 		String digitoStr,cuitMenosI;
 		
 		boolean booleano = false;
 		String identificadorStr = String.valueOf(identificador);
 		
-		if(this instanceof Cliente) {															//Si es cliente tiene dni
-			return(identificadorStr.length() == 7 || identificadorStr.length() == 8);		//Los dni tienen entre 7 y 8 digitos
+		if(this instanceof Cliente) {			//Si es cliente tiene dni
+			return(identificadorStr.length() == 7 || identificadorStr.length() == 8);	//Los dni tienen entre 7 y 8 digitos
 		}
 		
-		else if(identificadorStr.length() != 11) {											//Si no es cliente es comercio y tiene cuit
-	    	return booleano;																		//los cuit solo tienen 11 dígitos
+		else if(identificadorStr.length() != 11) {			//Si no es cliente es comercio y tiene cuit
+	    	return booleano;								//los cuit solo tienen 11 dígitos
 		}
 		
-		digitoStr = identificadorStr.substring(10, 11);
-		cuitMenosI = identificadorStr.substring(0,11);
+		digitoStr = identificadorStr.substring(10, 11); //Guardamos el valor de ultimo digito
+		cuitMenosI = identificadorStr.substring(0,11); //Guardamos el valor del cuit menos el ultimo digito
 		String[] cuitArray = cuitMenosI.split(""); 
 		
 		//Inicializamos una matriz por la cual se multiplicar�n cada uno de los digitos

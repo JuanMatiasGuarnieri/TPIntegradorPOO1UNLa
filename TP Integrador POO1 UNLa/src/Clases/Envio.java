@@ -36,8 +36,11 @@ public void setHoraDesde(LocalTime horaDesde) {
 public double getCosto() {
 	return costo;
 }
+//Recibe por parametro ubicacion, el costoFijo y el costo por km
 public void setCosto(Ubicacion ubicacion, double costoFijo, double costoPorKm) {
+	//Llama al metodo (DistanciaCoord) para calcular la distancia entre 2 coordenadas
 	double distancia = distanciaCoord(ubicacion.getLatitud(), ubicacion.getLongitud(), this.ubicacion.getLatitud(), this.ubicacion.getLongitud());
+	//Multiplicamos la distancia por el costoPorkm y le sumamos costofijo
 	double nuevoCosto = (distancia * costoPorKm) + costoFijo;
 	this.costo = nuevoCosto;
 }

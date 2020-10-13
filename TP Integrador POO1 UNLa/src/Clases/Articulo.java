@@ -104,7 +104,7 @@ public class Articulo {
 
 	//----------metodos----------
     public boolean validarCodBarras(String codBarras) {
-    	if(codBarras.length()!=13) {
+    	if(codBarras.length()!=13) { //Si el valor ingresado es distinto a 13 es invalido
     		return false;
     	   }
     	
@@ -112,24 +112,25 @@ public class Articulo {
 		int impares = 0; 
 		int total = 0;
 		int checkSum = 0; 
-		long longCodBarras = Long.parseLong(codBarras);
-		long ultDigito = longCodBarras % 10;
+		long longCodBarras = Long.parseLong(codBarras);  // Convertimos el string en un long
+		long ultDigito = longCodBarras % 10; //Guardamos el valor del ultimo digito en una variable
 		for (int i=1;i<13; i++) {
 		    int digito = Integer.parseInt(codBarras.substring(i-1,i));
 		    if (i%2!=0) {
-		        impares += digito;
+		        impares += digito;                 //guardamos el valor de las posiciones impares en una variable
+		                                           //y las vamos sumando
 		    } else {
-		        pares += digito;
+		        pares += digito;              //al igual que con las pares
 		    }
 		}
-		pares = pares * 3; //multiplicar pares por 3
-		total = impares + pares; //sumar pares e impares
+		pares = pares * 3; //multiplicamos el total de los pares por 3
+		total = impares + pares; //sumamos pares e impares
 		if (total % 10 == 0) { //Si el total es divisible por 10
 		    checkSum = 0;//Checksum es 0
 		} else { //si total no es divisible por 10
 		    checkSum = 10 - (total % 10); // Hacemos mod 10 del total y ese resultado va a restar a 10.
             // Esto nos va a dar el digito verificador (El último digito)
 		}
-		return (checkSum == ultDigito);
+		return (checkSum == ultDigito); //Comparamos el resultado con el ultimo digito del codigo de barras
 	}
 }
